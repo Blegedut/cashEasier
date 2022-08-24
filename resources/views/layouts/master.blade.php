@@ -81,7 +81,9 @@
                 </a>
             </header>
 
-            <div class="page-heading">
+            @yield('content')
+
+            {{-- <div class="page-heading">
                 <h3>Profile Statistics</h3>
             </div>
             <div class="page-content">
@@ -103,7 +105,7 @@
                                                 <h6 class="font-extrabold mb-0">112.000</h6>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
@@ -362,7 +364,7 @@
                                 href="https://saugi.me">Saugi</a></p>
                     </div>
                 </div>
-            </footer>
+            </footer> --}}
         </div>
     </div>
     <script src="assets/js/bootstrap.js"></script>
