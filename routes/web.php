@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('dashboard');
+});
+Route::get('/product', function () {
     return view('stockbarang.index');
+});
+Route::get('/cashire', function () {
+    return view('cashire.index');
 });
