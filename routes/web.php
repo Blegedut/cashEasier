@@ -22,3 +22,6 @@ Route::get('/product', function () {
 Route::get('/cashire', function () {
     return view('cashire.index');
 });
+Route::get('/checkout', function () {
+    return view('checkout.index');
+});

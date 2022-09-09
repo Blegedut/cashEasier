@@ -17,7 +17,7 @@
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -48,14 +48,17 @@
                                             Deskripsi :
                                         </h6>
                                         <p class="font-semibold mb-4">
-                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor incidunt ullam, a aut rerum exercitationem esse sit quibusdam consectetur ipsam doloremque dolore corrupti nesciunt ipsa debitis vitae facere fugiat nemo.
+                                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor incidunt ullam,
+                                            a aut rerum exercitationem esse sit quibusdam consectetur ipsam doloremque
+                                            dolore corrupti nesciunt ipsa debitis vitae facere fugiat nemo.
                                         </p>
                                         <h6 class="mb-1">Jumlah :</h6>
-                                        <input type="number" class=     "form-control" name="quantity">
+                                        <input type="number" class="form-control" name="quantity">
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
+                                        <a href={{ url('/checkout') }} class="btn btn-primary">Submit</a>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +79,7 @@
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -97,7 +100,7 @@
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -118,7 +121,7 @@
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -139,7 +142,7 @@
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -160,7 +163,7 @@
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>

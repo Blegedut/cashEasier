@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/css/main/app-dark.css">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
+    <link rel="stylesheet" href="assets/extensions/choices.js/public/assets/styles/choices.css">
 
     <link rel="stylesheet" href="assets/css/shared/iconly.css">
 
@@ -383,10 +384,12 @@
         </div>
     </div>
     <script src="assets/js/bootstrap.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src={{ asset('assets/js/app.js') }}></script>
 
     <!-- Need: Apexcharts -->
     <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+    <script src="assets/js/pages/form-element-select.js"></script>
     <script src="assets/js/pages/dashboard.js"></script>
 
 </body>

@@ -1,34 +1,79 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="modal fade modal-borderless" id="modalEdit" tabindex="-1"
-aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Description</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="text-center">
-                <img src="assets/images/samples/helix-hx5.jpeg" width="290px;" alt="">
+    {{-- EDIT MODAL --}}
+    <div class="modal fade modal-borderless" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img src="assets/images/samples/helix-hx5.jpeg" width="290px;" alt="">
+                    </div>
+                    <form class="form form-horizontal">
+                        <div class="form-body">
+                            <div class="row mt-5">
+                                <div class="col-md-4">
+                                    <label>Product Name</label>
+                                </div>
+                                <div class="col-md-8 mb-3 form-group">
+                                    <input type="text" class="form-control" name="fname" placeholder="Product Name">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Category</label>
+                                </div>
+                                <div class="col-md-8 mb-3 form-group">
+                                    <select class="choices form-select">
+                                        <option value="accessories">Accessories</option>
+                                        <option value="lubricant">Lubricant</option>
+                                        <option value="rombo">Rombo</option>
+                                        <option value="romboid">Romboid</option>
+                                        <option value="trapeze">Trapeze</option>
+                                        <option value="traible">Triangle</option>
+                                        <option value="polygon">Polygon</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Product photo</label>
+                                </div>
+                                <div class="col-md-8 mb-3 form-group">
+                                    <input class="form-control" type="file" id="formFile">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Stock</label>
+                                </div>
+                                <div class="col-md-8 mb-3 form-group">
+                                    <input type="number" class="form-control" name="contact" placeholder="Stock">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Price</label>
+                                </div>
+                                <div class="col-md-8 mb-3 form-group">
+                                    <input type="text" class="form-control" name="password" placeholder="Price">
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Description</label>
+                                </div>
+                                <div class="col-md-8 mb-3 form-group">
+                                    <input type="text-area" class="form-control" name="password" placeholder="Desc">
+                                </div>
+                                <div class="col-sm-12 mt-4 d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                    <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <p class="font-semibold mb-4">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor incidunt ullam,
-                a aut rerum exercitationem esse sit quibusdam consectetur ipsam doloremque
-                dolore corrupti nesciunt ipsa debitis vitae facere fugiat nemo.
-            </p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"
-                data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit</button>
         </div>
     </div>
-</div>
-</div>
-
+    {{-- EDIT MODAL --}}
+    
     <div class="page-heading">
         <h3>Product</h3>
     </div>
@@ -63,23 +108,28 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="text-center">
                                             <img src="assets/images/samples/helix-hx5.jpeg" width="290px;" alt="">
                                         </div>
-                                        <h4 class="mt-3">
-                                            Nama produk
-                                        </h4>
-                                        <h6 class="font-semibold mt-4 mb-1">
-                                            Stock :
+                                        <div class="d-flex justify-content-between">
+                                            <h4 class="mt-5">
+                                                Nama produk
+                                            </h4>
+                                            <h5 class="mt-5">
+                                                Rp. 123.000
+                                            </h5>
+                                        </div>
+                                        <h6 class="font-bold mt-4 mb-1">
+                                            Category
+                                        </h6>
+                                        <h6 class="font-semibold mb-4">
+                                            Lubricant
+                                        </h6>
+                                        <h6 class="font-bold mt-2 mb-1">
+                                            Stock
                                         </h6>
                                         <h6 class="font-semibold mb-4">
                                             123
                                         </h6>
-                                        <h6 class="font-semibold mt-4 mb-1">
-                                            Price :
-                                        </h6>
-                                        <h6 class="font-semibold mb-4">
-                                            Rp. 123.000
-                                        </h6>
-                                        <h6 class="font-semibold mt-4 mb-1">
-                                            Deskripsi :
+                                        <h6 class="font-bold mt-2 mb-1">
+                                            Deskripsi
                                         </h6>
                                         <p class="font-semibold mb-4">
                                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor incidunt ullam,
@@ -90,7 +140,8 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEdit">Edit</button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEdit">Edit</button>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +162,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -132,7 +183,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -153,7 +204,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -174,7 +225,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
@@ -195,7 +246,7 @@ aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <h6 class="card text font-semibold mb-2">
                             Price : Rp. 123000
                         </h6>
-                        <p class="card text mb-1">
+                        <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Description
                             </a>
