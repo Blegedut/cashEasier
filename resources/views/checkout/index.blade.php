@@ -50,12 +50,16 @@
                             <h6 class="card text font-semibold mb-2">
                                 Rp. 100000
                             </h6>
-                            <p class="card text font-semibold mt-5">
-                                Jumlah Produk : 1
+                            <p class="card text font-semibold mt-3">
+                                Jumlah Produk : 1 gln
                             </p>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutEdit">
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#checkoutEdit">
                                 Edit
                             </button>
+                            <a class="btn btn-danger" href="#">
+                                Delete
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -71,12 +75,16 @@
                             <h6 class="card text font-semibold mb-2">
                                 Rp. 100000
                             </h6>
-                            <p class="card text font-semibold mt-5">
-                                Jumlah Produk : 1
+                            <p class="card text font-semibold mt-3">
+                                Jumlah Produk : 1 gln
                             </p>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutEdit">
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#checkoutEdit">
                                 Edit
                             </button>
+                            <a class="btn btn-danger" href="#">
+                                Delete
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -92,12 +100,16 @@
                             <h6 class="card text font-semibold mb-2">
                                 Rp. 100000
                             </h6>
-                            <p class="card text font-semibold mt-5">
-                                Jumlah Produk : 1
+                            <p class="card text font-semibold mt-3">
+                                Jumlah Produk : 1 gln
                             </p>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutEdit">
+                            <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                data-bs-target="#checkoutEdit">
                                 Edit
                             </button>
+                            <a class="btn btn-danger" href="#">
+                                Delete
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -105,19 +117,35 @@
         </div>
 
         <div class="col-md-3 col-sm-12">
+            {{-- <div class="card"> --}}
             <div class="card border-0 shadow-lg">
-                <div class="card-header" style="background-color: white">Transaksi</div>
-                <div class="card-body">
-                    <div class="row ">
-                        <div class="col-8">
-                            <p class="card-text"> Shell Helix HX-5 x 3 </p>
-                        </div>
-                        <div class="col-4">
-                            <p class="card-text">300000</p>
+                <div class="card-content">
+
+                    <div class="card-header">
+                        <p>Transaksi</p>
+                        <form action="#" method="post">
+                            <div class="row">
+                                <div class="col-5">
+                                    <label>Customer name</label>
+                                </div>
+                                <div class="col-7 form-group">
+                                    <input class="form-control form-control-sm" type="text" id="formFile" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="col-8">
+                                <p class="card-text"> Shell Helix HX-5 x 3 gln </p>
+                            </div>
+                            <div class="col-4">
+                                <p class="card-text">300000</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" style="background-color: white">
+                <div class="card-footer">
                     <div class="row">
                         <div class="col-8">
                             Total Harga
@@ -129,6 +157,7 @@
                     </div>
                 </div>
             </div>
+            {{-- </div> --}}
         </div>
     </div>
 @endsection

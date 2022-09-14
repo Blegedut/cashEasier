@@ -25,3 +25,9 @@ Route::get('/cashire', function () {
 Route::get('/checkout', function () {
     return view('checkout.index');
 });
+Route::get('/report', function () {
+    return view('report.index');
+});
+Route::get('/report/show', function () {
+    return view('report.show');
+});

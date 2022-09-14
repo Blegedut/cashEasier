@@ -19,7 +19,7 @@
                         </h6>
                         <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Description
+                                Detail
                             </a>
                         </p>
                         <div class="modal fade modal-borderless" id="exampleModal" tabindex="-1"
@@ -52,8 +52,20 @@
                                             a aut rerum exercitationem esse sit quibusdam consectetur ipsam doloremque
                                             dolore corrupti nesciunt ipsa debitis vitae facere fugiat nemo.
                                         </p>
-                                        <h6 class="mb-1">Jumlah :</h6>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-21">
+                                                <h6 class="mb-1">Jumlah :</h6>
+                                                <input type="number" class="form-control" name="quantity">
+                                            </div>
+                                            <div class="col-md-6 col-sm-21">
+                                                <h6 class="mb-1">Unit :</h6>
+                                                <select class="choices form-select">
+                                                    <option value="pcs">pcs</option>
+                                                    <option value="galon">gln</option>
+                                                    <option value="liter">liter</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -81,7 +93,7 @@
                         </h6>
                         <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Description
+                                Detai
                             </a>
                         </p>
                     </div>
@@ -102,7 +114,7 @@
                         </h6>
                         <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Description
+                                Detai
                             </a>
                         </p>
                     </div>
@@ -123,7 +135,7 @@
                         </h6>
                         <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Description
+                                Detai
                             </a>
                         </p>
                     </div>
@@ -144,7 +156,7 @@
                         </h6>
                         <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Description
+                                Detai
                             </a>
                         </p>
                     </div>
@@ -165,7 +177,7 @@
                         </h6>
                         <p class="card text mt-3 mb-1">
                             <a class="collapsed" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Description
+                                Detai
                             </a>
                         </p>
                     </div>
