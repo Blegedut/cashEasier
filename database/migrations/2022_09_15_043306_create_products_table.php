@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->enum('category', ['Lubricant', 'accessories', 'Spare Part']);
+            $table->string('price');
+            $table->string('description');
+            $table->number('stock');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
