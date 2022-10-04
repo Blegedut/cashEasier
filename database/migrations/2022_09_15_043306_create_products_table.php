@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
+            $table->foreign('unit_id')->references('id')->on('unit')->onDelete('cascade');
             $table->string('name');
-            $table->enum('category', ['Lubricant', 'accessories', 'Spare Part']);
-            $table->string('price');
             $table->string('description');
             $table->number('stock');
+            $table->string('price');
             $table->string('image')->nullable();
             $table->timestamps();
         });

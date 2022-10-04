@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('receipts', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->foreign('cart_id')->references('id')->on('cart')->onDelete('cascade');
-            $table->string('customer_name');
-            $table->string('plat_number');
-            $table->enum('payment', ['ATM', 'Transfer', 'QR code', 'cash']);
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('receipts');
+        Schema::dropIfExists('sales');
     }
 };

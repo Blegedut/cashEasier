@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Receipt;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
-class ReceiptController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ReceiptController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Receipt  $receipt
+     * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function show(Receipt $receipt)
+    public function show(Customer $customer)
     {
         //
     }
@@ -52,10 +52,10 @@ class ReceiptController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Receipt  $receipt
+     * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Receipt $receipt)
+    public function edit(Customer $customer)
     {
         //
     }
@@ -64,10 +64,10 @@ class ReceiptController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Receipt  $receipt
+     * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Receipt $receipt)
+    public function update(Request $request, Customer $customer)
     {
         //
     }
@@ -75,10 +75,10 @@ class ReceiptController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Receipt  $receipt
+     * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Receipt $receipt)
+    public function destroy(Customer $customer)
     {
         //
     }

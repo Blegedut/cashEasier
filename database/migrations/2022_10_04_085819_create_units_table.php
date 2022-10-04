@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
-            $table->string('amount');
-            $table->enum('unit', ['gln', 'pcs', 'liter', 'set']);
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('units');
     }
 };
