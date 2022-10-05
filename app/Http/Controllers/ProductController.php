@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,9 +16,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $category = Categorie::get();
+        $product = Product::all();
 
-        return view('product.index', compact(['category']));
+        $category = Categorie::get();
+        $unit = Unit::get();
+
+        return view('product.index', compact(['category', 'unit', 'product']));
     }
 
     public function cashier()
@@ -46,6 +50,9 @@ class ProductController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
+            'category' => 'required',
+            'qty' => 'required',
+            'unit' => 'required',
             'stock' => 'required',
             'price' => 'required',
             'image' => 'required|file|max:3072',
@@ -54,6 +61,9 @@ class ProductController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
+        $product->categorie_id = $request->category;
+        $product->quantity = $request->qty;
+        $product->unit_id = $request->unit;
         $product->stock = $request->stock;
         $product->price = $request->price;
         
@@ -64,8 +74,9 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $request->file('image')->storeAs('/foto_product', $filename);
         }
+        $product->save();
 
-        dd($product);
+        // dd($product);
 
         return redirect()->back();
     }
