@@ -13,4 +13,19 @@ class Invoice extends Model
         'name',
         'customer_id'
     ];
+
+    public function sales()
+    {
+        return $this->hasOne(Sales::class);
+    }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

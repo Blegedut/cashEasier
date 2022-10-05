@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class CategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,7 +44,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Categorie $category)
     {
         //
     }
@@ -55,7 +55,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Categorie $category)
     {
         //
     }
@@ -67,7 +67,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Categorie $category)
     {
         //
     }
@@ -78,7 +78,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Categorie $category)
     {
         //
     }

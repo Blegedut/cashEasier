@@ -12,4 +12,9 @@ class Sale extends Model
     protected $fillable = [
         'transaction_id'
     ];
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
 }
