@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CashierController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,18 +19,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
-Route::get('/product', function () {
-    return view('stockbarang.index');
+
+Route::group(['prefix' => 'product'], function () {
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/store', [ProductController::class, 'store'])->name('product.store');
 });
-Route::get('/cashire', function () {
-    return view('cashire.index');
+
+Route::group(['prefix' => 'cashier'], function () {
+    Route::get('/', [CashierController::class, 'index'])->name('cashier.index');
+    Route::get('/checkout', [CashierController::class, 'checkout'])->name('checkout.index');
 });
-Route::get('/checkout', function () {
-    return view('checkout.index');
-});
-Route::get('/report', function () {
-    return view('report.index');
-});
-Route::get('/report/show', function () {
-    return view('report.show');
+
+Route::group(['prefix' => 'report'], function () {
+    Route::get('/', [SaleController::class, 'index'])->name('report.index');
+    Route::get('/detail', [SaleController::class, 'show'])->name('detail.index');
 });

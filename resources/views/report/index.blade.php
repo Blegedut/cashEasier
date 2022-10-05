@@ -25,7 +25,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -33,7 +33,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -41,7 +41,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -49,7 +49,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -57,7 +57,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -65,7 +65,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -73,7 +73,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -81,7 +81,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -89,7 +89,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -97,7 +97,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -105,7 +105,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -113,7 +113,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                     <tr>
@@ -121,7 +121,7 @@
                         <td>09-14-2022</td>
                         <td>arul</td>
                         <td>
-                            <a class="btn btn-info"  href={{ url('/report/show') }}>Detail</a>
+                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
                         </td>
                     </tr>
                 </tbody>

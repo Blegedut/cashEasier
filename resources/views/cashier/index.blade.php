@@ -70,7 +70,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <a href={{ url('/checkout') }} class="btn btn-primary">Submit</a>
+                                        <a href={{ url('cashier/checkout') }} class="btn btn-primary">Submit</a>
                                     </div>
                                 </div>
                             </div>

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->enum('unit', ['gln', 'liter', 'pcs', 'set']);
+            $table->string('unit');
             $table->timestamps();
         });
     }

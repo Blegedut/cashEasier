@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    {{-- ADD MODAL --}}
+    {{-- MODAL ADD --}}
     <div class="modal fade modal-borderless" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -11,59 +11,52 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="text-center">
-                        <img src="assets/images/samples/helix-hx5.jpeg" width="290px;" alt="">
-                    </div>
-                    <form class="form form-horizontal">
+                    <form action="{{url('product/store')}}" class="form form-horizontal">
                         <div class="form-body">
                             <div class="row mt-5">
                                 <div class="col-md-4">
                                     <label>Product Name</label>
                                 </div>
                                 <div class="col-md-8 mb-3 form-group">
-                                    <input type="text" class="form-control" name="fname" placeholder="Product Name">
+                                    <input type="text" class="form-control" name="name" placeholder="Product Name">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Category</label>
                                 </div>
                                 <div class="col-md-8 mb-3 form-group">
-                                    <select class="choices form-select">
-                                        <option value="accessories">Accessories</option>
-                                        <option value="lubricant">Lubricant</option>
-                                        <option value="rombo">Rombo</option>
-                                        <option value="romboid">Romboid</option>
-                                        <option value="trapeze">Trapeze</option>
-                                        <option value="traible">Triangle</option>
-                                        <option value="polygon">Polygon</option>
+                                    <select class="choices form-select" name="">>
+                                        @foreach ($category as $ct)
+                                            <option value="{{$ct->id}}">{{$ct->category}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Product photo</label>
                                 </div>
                                 <div class="col-md-8 mb-3 form-group">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" name="image" type="file" id="formFile">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Stock</label>
                                 </div>
                                 <div class="col-md-8 mb-3 form-group">
-                                    <input type="number" class="form-control" name="contact" placeholder="Stock">
+                                    <input type="number" class="form-control" name="stock" placeholder="Stock">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Price</label>
                                 </div>
                                 <div class="col-md-8 mb-3 form-group">
-                                    <input type="text" class="form-control" name="password" placeholder="Price">
+                                    <input type="text" class="form-control" name="price" placeholder="Price">
                                 </div>
                                 <div class="col-md-4">
                                     <label>Description</label>
                                 </div>
                                 <div class="col-md-8 mb-3 form-group">
-                                    <input type="text-area" class="form-control" name="password" placeholder="Desc">
+                                    <input type="text-area" class="form-control" name="description" placeholder="Desc">
                                 </div>
                                 <div class="col-sm-12 mt-4 d-flex justify-content-end">
                                     <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                    {{-- <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button> --}}
+                                    <button type="button" class="btn btn-secondary  me-1 mb-1" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -72,9 +65,9 @@
             </div>
         </div>
     </div>
-    {{-- ADD MODAL --}}
+    {{-- MODAL ADD --}}
 
-    {{-- EDIT MODAL --}}
+    {{-- MODAL EDIT --}}
     <div class="modal fade modal-borderless" id="modalEdit" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable">
@@ -145,19 +138,19 @@
             </div>
         </div>
     </div>
-    {{-- EDIT MODAL --}}
+    {{-- MODAL EDIT --}}
 
     <div class="page-heading">
         <h3>Product</h3>
     </div>
-    <div class="card">
+    <div class="card shadow">
         <div class="card-header">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">+ Add Product</button>
+            <button type="button" class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#modalAdd">+ Add Product</button>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-6 col-lg-2 col-md-6">
-                    <div class="card">
+                    <div class="card shadow-sm">
                         <div class="card-content">
                             <img src="assets/images/samples/helix-hx5.jpeg" class="card-img-top img-fluid"
                                 alt="singleminded">
@@ -230,121 +223,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-2 col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="assets/images/samples/helix-hx5.jpeg" class="card-img-top img-fluid"
-                                alt="singleminded">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama Product</h5>
-                                <h6 class="card text font-semibold mt-3 mb-1">
-                                    Stock : 123
-                                </h6>
-                                <h6 class="card text font-semibold mb-2">
-                                    Price : Rp. 123000
-                                </h6>
-                                <p class="card text mt-3 mb-1">
-                                    <a class="collapsed" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        Description
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-2 col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="assets/images/samples/helix-hx5.jpeg" class="card-img-top img-fluid"
-                                alt="singleminded">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama Product</h5>
-                                <h6 class="card text font-semibold mt-3 mb-1">
-                                    Stock : 123
-                                </h6>
-                                <h6 class="card text font-semibold mb-2">
-                                    Price : Rp. 123000
-                                </h6>
-                                <p class="card text mt-3 mb-1">
-                                    <a class="collapsed" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        Description
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-2 col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="assets/images/samples/helix-hx5.jpeg" class="card-img-top img-fluid"
-                                alt="singleminded">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama Product</h5>
-                                <h6 class="card text font-semibold mt-3 mb-1">
-                                    Stock : 123
-                                </h6>
-                                <h6 class="card text font-semibold mb-2">
-                                    Price : Rp. 123000
-                                </h6>
-                                <p class="card text mt-3 mb-1">
-                                    <a class="collapsed" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        Description
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-2 col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="assets/images/samples/helix-hx5.jpeg" class="card-img-top img-fluid"
-                                alt="singleminded">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama Product</h5>
-                                <h6 class="card text font-semibold mt-3 mb-1">
-                                    Stock : 123
-                                </h6>
-                                <h6 class="card text font-semibold mb-2">
-                                    Price : Rp. 123000
-                                </h6>
-                                <p class="card text mt-3 mb-1">
-                                    <a class="collapsed" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        Description
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-2 col-md-6">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="assets/images/samples/helix-hx5.jpeg" class="card-img-top img-fluid"
-                                alt="singleminded">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama Product</h5>
-                                <h6 class="card text font-semibold mt-3 mb-1">
-                                    Stock : 123
-                                </h6>
-                                <h6 class="card text font-semibold mb-2">
-                                    Price : Rp. 123000
-                                </h6>
-                                <p class="card text mt-3 mb-1">
-                                    <a class="collapsed" href="#" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal">
-                                        Description
-                                    </a>
-                                </p>
                             </div>
                         </div>
                     </div>

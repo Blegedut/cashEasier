@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $category = Categorie::get();
+
+        return view('product.index', compact(['category']));
+    }
+
+    public function cashier()
+    {
+        return view('cashier.index');
     }
 
     /**
@@ -35,7 +43,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'stock' => 'required',
+            'price' => 'required',
+            'image' => 'required|file|max:3072',
+        ]);
+
+        $product = new Product();
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        
+        $img = $request->file('image');
+        $filename = $img->getClientOriginalName();
+
+        $product->image = $request->file('image')->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            $request->file('image')->storeAs('/foto_product', $filename);
+        }
+
+        dd($product);
+
+        return redirect()->back();
     }
 
     /**

@@ -77,21 +77,21 @@
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item ">
-                            <a href={{ url('/cashire') }} class='sidebar-link'>
+                            <a href={{ url('/cashier') }} class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Cashire</span>
+                                <span>Kasir</span>
                             </a>
                         </li>
                         <li class="sidebar-item ">
                             <a href={{ url('/product') }} class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Product</span>
+                                <span>Produk</span>
                             </a>
                         </li>
                         <li class="sidebar-item ">
                             <a href={{ url('/report') }} class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Report</span>
+                                <span>Laporan</span>
                             </a>
                         </li>
                     </ul>
