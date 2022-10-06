@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Categorie;
+use App\Models\Unit;
 
 class CashierController extends Controller
 {
@@ -13,7 +15,12 @@ class CashierController extends Controller
      */
     public function index()
     {
-        return view('cashier.index');
+        $category = Categorie::with('products')->get();
+
+        $unit = Unit::get();
+
+
+        return view('cashier.index', compact(['category', 'unit']));
     }
 
     public function checkout()

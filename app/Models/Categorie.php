@@ -10,10 +10,10 @@ class Categorie extends Model
     use HasFactory;
 
     protected $fillable = [
-        'categorie'
+        'category'
     ];
 
-    public function product()
+    public function products()
     {
         return $this->hasMany(Product::class);
     }

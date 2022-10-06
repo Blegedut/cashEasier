@@ -24,7 +24,7 @@ class Product extends Model
         return $this->hasOne(Transaction::class);
     }
 
-    public function category() 
+    public function category()
     {
         return $this->belongsTo(Categorie::class);
     }

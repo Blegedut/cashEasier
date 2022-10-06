@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+{{-- https://www.youtube.com/watch?v=fxyf29q2Orw --}}
 @section('content')
     {{-- MODAL ADD --}}
     <div class="modal fade modal-borderless" id="modalAdd" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -84,92 +84,124 @@
     </div>
     {{-- MODAL ADD --}}
 
+    {{-- MODAL DELETE --}}
+    @foreach ($category as $ct)
+        @foreach ($ct->products as $pd)
+            <div class="modal fade" id="modalDelete{{ $pd->id }}" tabindex="-1" aria-labelledby="modalHapusBarang"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <i class="fas fa-exclamation-circle mb-2"
+                                style="color: #e74a3b; font-size:120px; justify-content:center; display:flex"></i>
+                            <h5 class="text-center">Apakah anda yakin ingin menghapus {{ $pd->name }} ?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <form action={{ url('/product/delete/' . $pd->id) }} method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    @endforeach
+    {{-- MODAL DELETE --}}
+
     <div class="page-heading">
         <h3>Product</h3>
     </div>
     <div class="card shadow">
-        <div class="card-header">
+        <div class="row card-header">
             <button type="button" class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#modalAdd">+
                 Add Product</button>
+            
         </div>
         <div class="card-body">
             <div class="row">
-                @foreach ($product as $pd)
-                    <div class="col-6 col-lg-2 col-md-6">
-                        <div class="card shadow-sm">
-                            <div class="card-content">
-                                <img src={{ asset('storage/foto_rumah/' . $pd->image) }} class="card-img-top img-fluid"
-                                    alt="{{ $pd->image }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $pd->name }}</h5>
-                                    <h6 class="card text font-semibold mt-3 mb-1">
-                                        Stock : {{ $pd->stock }}
-                                    </h6>
-                                    <h6 class="card text font-semibold mb-2">
-                                        Price : Rp. {{ $pd->price }}
-                                    </h6>
-                                    <p class="card text mt-3 mb-1">
-                                        <a class="collapsed" href="#" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal{{ $pd->id }}">
-                                            Description
-                                        </a>
-                                    </p>
-                                    <div class="modal fade modal-borderless" id="exampleModal{{ $pd->id }}"
-                                        tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div
-                                            class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Description</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="text-center">
-                                                        <img src={{ asset('storage/foto_rumah/' . $pd->image) }} width="290px;"
-                                                            alt="">
+                @foreach ($category as $ct)
+                    @foreach ($ct->products as $pd)
+                        <div class="col-6 col-lg-2 col-md-6">
+                            <div class="card shadow-sm">
+                                <div class="card-content">
+                                    <img src={{ asset('storage/image/foto_product/' . $pd->image) }} style="height:15rem"
+                                        class="card-img-top img-fluid" alt="{{ $pd->image }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $pd->name }}</h5>
+                                        <h6 class="card text font-semibold mt-3 mb-1">
+                                            Stock : {{ $pd->stock }}
+                                        </h6>
+                                        <h6 class="card text font-semibold mb-2">
+                                            Price : Rp. {{ $pd->price }}
+                                        </h6>
+                                        <p class="card text mt-3 mb-1">
+                                            <a class="collapsed" href="#" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal{{ $pd->id }}">
+                                                Description
+                                            </a>
+                                        </p>
+                                        <div class="modal fade modal-borderless" id="exampleModal{{ $pd->id }}"
+                                            tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div
+                                                class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
-                                                    <div class="d-flex justify-content-between">
-                                                        <h4 class="mt-5">
-                                                            {{ $pd->name }}
-                                                        </h4>
-                                                        <h5 class="mt-5">
-                                                            Rp. {{ $pd->price }}
-                                                        </h5>
+                                                    <div class="modal-body">
+                                                        <div class="text-center">
+                                                            <img src={{ asset('storage/image/foto_product/' . $pd->image) }}
+                                                                width="290px;" height="290px" alt="">
+                                                        </div>
+                                                        <div class="d-flex justify-content-between">
+                                                            <h4 class="mt-5">
+                                                                {{ $pd->name }}
+                                                            </h4>
+                                                            <h5 class="mt-5">
+                                                                Rp. {{ $pd->price }}
+                                                            </h5>
+                                                        </div>
+                                                        <h6 class="font-bold mt-4 mb-1">
+                                                            Category
+                                                        </h6>
+                                                        <h6 class="font-semibold mb-4">
+                                                            {{ $ct->category }}
+                                                        </h6>
+                                                        <h6 class="font-bold mt-2 mb-1">
+                                                            Stock
+                                                        </h6>
+                                                        <h6 class="font-semibold mb-4">
+                                                            {{ $pd->stock }}
+                                                        </h6>
+                                                        <h6 class="font-bold mt-2 mb-1">
+                                                            Deskripsi
+                                                        </h6>
+                                                        <p class="font-semibold mb-4">
+                                                            {{ $pd->description }}
+                                                        </p>
                                                     </div>
-                                                    <h6 class="font-bold mt-4 mb-1">
-                                                        Category
-                                                    </h6>
-                                                    <h6 class="font-semibold mb-4">
-                                                        {{ $pd->categorie_id }}
-                                                    </h6>
-                                                    <h6 class="font-bold mt-2 mb-1">
-                                                        Stock
-                                                    </h6>
-                                                    <h6 class="font-semibold mb-4">
-                                                        {{ $pd->stock }}
-                                                    </h6>
-                                                    <h6 class="font-bold mt-2 mb-1">
-                                                        Deskripsi
-                                                    </h6>
-                                                    <p class="font-semibold mb-4">
-                                                        {{ $pd->description }}
-                                                    </p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#modalEdit{{$pd->id}}">Edit</button>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modalDelete{{ $pd->id }}">Delete</button>
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#modalEdit{{ $pd->id }}">Edit</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            @include('product/edit')
                         </div>
-                        @include('product/edit')
-                    </div>
+                    @endforeach
                 @endforeach
             </div>
         </div>

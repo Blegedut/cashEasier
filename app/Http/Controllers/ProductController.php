@@ -6,6 +6,7 @@ use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -16,12 +17,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
-
-        $category = Categorie::get();
+        $category = Categorie::with('products')->get();
+        // dd($product);
         $unit = Unit::get();
-
-        return view('product.index', compact(['category', 'unit', 'product']));
+        
+        return view('product.index', compact(['category', 'unit']));
     }
 
     public function cashier()
@@ -72,7 +72,7 @@ class ProductController extends Controller
 
         $product->image = $request->file('image')->getClientOriginalName();
         if ($request->hasFile('image')) {
-            $request->file('image')->storeAs('/foto_product', $filename);
+            $request->file('image')->storeAs('public/image/foto_product', $filename);
         }
         $product->save();
 
@@ -110,9 +110,42 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product, $id)
     {
-        //
+        $product = Product::where('id', $id)->first();
+
+        $this->validate($request, [
+            'name' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+            'qty' => 'required',
+            'unit' => 'required',
+            'stock' => 'required',
+            'price' => 'required',
+            'image' => 'required|file|max:3072',
+        ]);
+
+        $img = $request->file('image');
+        $filename = $img->getClientOriginalName();
+
+        $product->image = $request->file('image')->getClientOriginalName();
+        if ($request->hasFile('image')) {
+            if ($request->oldImage) {
+                Storage::delete('/public/image/foto_product/' . $request->oldImage);
+            }
+            $request->file('image')->storeAs('/public/image/foto_product', $filename);
+        }
+
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->categorie_id = $request->category;
+        $product->quantity = $request->qty;
+        $product->unit_id = $request->unit;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
+        $product->update();
+
+        return redirect()->back();
     }
 
     /**
@@ -121,8 +154,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product, $id)
     {
-        //
+        $product = Product::find($id);
+
+        $product->delete();
+
+        return redirect()->route('product.index');
     }
 }

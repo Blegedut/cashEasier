@@ -23,7 +23,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'product'], function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');
     Route::post('/store', [ProductController::class, 'store'])->name('product.store');
-    Route::put('/update/{id}', [ProductController::class, 'update'])->name('rt.update');
+    Route::put('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 });
 
 Route::group(['prefix' => 'cashier'], function () {
