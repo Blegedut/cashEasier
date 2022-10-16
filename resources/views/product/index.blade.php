@@ -200,9 +200,7 @@
                                                         <button type="button" class="btn btn-danger"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#modalDelete{{ $pd->id }}">Delete</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalEdit{{ $pd->id }}">Edit</button>
+                                                            <a href='{{ url('/product/show/' . $pd->id) }}' class="btn btn-primary">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>

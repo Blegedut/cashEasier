@@ -57,7 +57,7 @@
                                         <label>Product photo</label>
                                     </div>
                                     <div class="col-md-8 mb-3 form-group">
-                                        <input class="form-control" name="image" type="file" id="formFile">
+                                        <input class="form-control" name="image" value="{{$pd->image}}" type="file" id="formFile" required>
                                     </div>
                                     <div class="col-md-4">
                                         <label>Stock</label>
@@ -77,8 +77,8 @@
                                         <label>Description</label>
                                     </div>
                                     <div class="col-md-8 mb-3 form-group">
-                                        <textarea class="form-control" value="{{ $pd->description }}" name="description" placeholder="Desc" rows="3"
-                                            required></textarea>
+                                        <input class="form-control" value="{{ $pd->description }}" name="description" placeholder="Desc" rows="3"
+                                            required>
                                     </div>
                                     <div class="col-sm-12 mt-4 d-flex justify-content-end">
                                         <button type="button" class="btn btn-secondary  me-1 mb-1"

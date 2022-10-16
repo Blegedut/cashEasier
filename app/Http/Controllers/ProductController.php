@@ -99,9 +99,7 @@ class ProductController extends Controller
                                                         <button type="button" class="btn btn-danger"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#modalDelete'.$pd->id.'">Delete</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalEdit'.$pd->id.'">Edit</button>
+                                                            <a href="'. url('/product/show/' . $pd->id) .'" class="btn btn-primary">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,38 +140,38 @@ class ProductController extends Controller
         return view('product.index', compact(['category', 'unit']));
     }
 
-    public function search(Request $request)
-    {
-        if ($request->ajax()) {
+    // public function search(Request $request)
+    // {
+    //     if ($request->ajax()) {
 
-            $output = '';
+    //         $output = '';
 
-            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('description', 'LIKE', '%' . $request->search . '%')
-                ->get();
-            if ($products) {
-                foreach ($products as $pd) {
-                    $output .=
-                        '<div class="card-body">
-                        <img src="' . $pd->image . '" style="height:15rem"
-                            class="card-img-top img-fluid">
-                        <h5 class="card-title">' . $pd->name . '</h5>
-                        <h6 class="card text font-semibold mt-3 mb-1">
-                            Stock : ' . $pd->stock . '
-                        </h6>
-                        <h6 class="card text font-semibold mb-2">
-                            Price : Rp. ' . $pd->price . '
-                        </h6>
-                    </div>';
-                }
-                return response()->json($output);
-            }
-        }
+    //         $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
+    //             ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+    //             ->get();
+    //         if ($products) {
+    //             foreach ($products as $pd) {
+    //                 $output .=
+    //                     '<div class="card-body">
+    //                     <img src="' . $pd->image . '" style="height:15rem"
+    //                         class="card-img-top img-fluid">
+    //                     <h5 class="card-title">' . $pd->name . '</h5>
+    //                     <h6 class="card text font-semibold mt-3 mb-1">
+    //                         Stock : ' . $pd->stock . '
+    //                     </h6>
+    //                     <h6 class="card text font-semibold mb-2">
+    //                         Price : Rp. ' . $pd->price . '
+    //                     </h6>
+    //                 </div>';
+    //             }
+    //             return response()->json($output);
+    //         }
+    //     }
 
 
 
-        return view('product.index');
-    }
+    //     return view('product.index');
+    // }
 
     public function cashier()
     {
@@ -238,9 +236,14 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Product $product, $id)
     {
-        //
+        $category = Categorie::with('products')->get();
+        $product = Product::where('id', $id)->firstOrFail();
+        $unit = Unit::get();
+
+
+        return view('product.show', compact(['category', 'product', 'unit']));
     }
 
     /**
@@ -296,7 +299,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->update();
 
-        return redirect()->back();
+        return redirect('product');
     }
 
     /**
