@@ -115,13 +115,24 @@
         <h3>Product</h3>
     </div>
     <div class="card shadow">
-        <div class="row card-header">
-            <button type="button" class="btn btn-primary shadow" data-bs-toggle="modal" data-bs-target="#modalAdd">+
-                Add Product</button>
-            
+        <div class="card-header">
+            <div class="row mb-3">
+                <div class="col-6 col-lg-8 col-md-6">
+                    <button type="button" class="btn btn-primary shadow" data-bs-toggle="modal"
+                        data-bs-target="#modalAdd">+
+                        Add Item</button>
+                </div>
+                <div class="col-6 col-lg-4 col-md-6">
+                    <form class="d-flex" style="align-items: flex-end" role="search">
+                        <input class="form-control me-2" id="search" name="search" type="search"
+                            placeholder="Search" aria-label="Search">
+                        <button class="btn btn-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="card-body">
-            <div class="row">
+            <div class="mycard row">
                 @foreach ($category as $ct)
                     @foreach ($ct->products as $pd)
                         <div class="col-6 col-lg-2 col-md-6">
@@ -206,4 +217,35 @@
             </div>
         </div>
     </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'csrftoken': '{{ csrf_token() }}'
+            }
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#search').on('keyup', function() {
+                var value = $(this).val();
+                // console.log(value);
+                $.ajax({
+                    type: "get",
+                    url: "/product",
+                    data: {
+                        'search': value
+                    },
+                    success: function(data) {
+                        // console.log(data);
+                        $('.mycard').html(data);
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
