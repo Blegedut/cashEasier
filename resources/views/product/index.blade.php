@@ -208,7 +208,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @include('product/edit')
                         </div>
                     @endforeach
                 @endforeach

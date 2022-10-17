@@ -216,12 +216,14 @@ class ProductController extends Controller
         $product->stock = $request->stock;
         $product->price = $request->price;
 
-        $img = $request->file('image');
-        $filename = $img->getClientOriginalName();
+        // $img = $request->file('image');
+        // $filename = $img->getClientOriginalName();
+        $filename = time() .'.jpg';
 
-        $product->image = $request->file('image')->getClientOriginalName();
+        // $product->image = $request->file('image')->getClientOriginalName();
         if ($request->hasFile('image')) {
             $request->file('image')->storeAs('public/image/foto_product', $filename);
+            $product->image = $filename;
         }
         $product->save();
 
