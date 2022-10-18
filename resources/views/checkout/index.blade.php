@@ -86,16 +86,24 @@
                             </div>
                         </form>
                     </div>
-                    <div class="card-body">
-                        <div class="row ">
-                            <div class="col-8">
-                                <p class="card-text"> Shell Helix HX-5 x 3 gln </p>
-                            </div>
-                            <div class="col-4">
-                                <p class="card-text">300000</p>
+                    @php
+                        $total = 0;
+                    @endphp
+                    @foreach ($products as $pd)
+                    @php
+                        $total += $pd->sub_total
+                    @endphp
+                        <div class="card-body">
+                            <div class="row ">
+                                <div class="col-8">
+                                    <p class="card-text"> {{ $pd->product->name }} </p>
+                                </div>
+                                <div class="col-4">
+                                    <p class="card-text">{{ $pd->sub_total }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="card-footer">
                     <div class="row">
@@ -103,7 +111,7 @@
                             Total Harga
                         </div>
                         <div class="col-4">
-                            <p style="color: green">300000</p>
+                            <p style="color: green">{{ $total }}</p>
                         </div>
                         <button class="btn btn-success mt-2">Bayar Sekarang</button>
                     </div>
