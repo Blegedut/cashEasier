@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Categorie;
 use App\Models\Unit;
 use App\Models\Product;
+use App\Models\Transaction;
 
 class CashierController extends Controller
 {
@@ -128,7 +129,22 @@ class CashierController extends Controller
 
     public function checkout()
     {
-        return view('checkout.index');
+        $products = Transaction::with('product')->get();
+        foreach ($products as $product){
+            $product->unit = Unit::where('id', $product->unit_id)->first();
+        }
+        // $unit = Unit::where('id', $product->unit_id);
+        $cart = Transaction::where('invoice_id', null)->first();
+        // dd($product);   
+        // foreach ($product as $pd) {
+        //     foreach ($pd->transaction as $tr) {
+        //         if ($tr->invoice_id === null) {
+        //             return view('checkout.index')
+        //         }
+        //     }
+        // }
+
+        return view('checkout.index', compact(['cart','products']));
     }
 
     /**

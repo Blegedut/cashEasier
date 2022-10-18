@@ -3,7 +3,7 @@
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
-use App\Models\Product;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +33,10 @@ Route::group(['prefix' => 'product'], function () {
 Route::group(['prefix' => 'cashier'], function () {
     Route::get('/', [CashierController::class, 'index'])->name('cashier.index');
     Route::get('/checkout', [CashierController::class, 'checkout'])->name('checkout.index');
+});
+
+Route::group(['prefix' => 'transaction'], function () {
+    Route::post('/', [TransactionController::class, 'store'])->name('transaction.index');
 });
 
 Route::group(['prefix' => 'report'], function () {

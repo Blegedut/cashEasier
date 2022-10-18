@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('invoice_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade')->nullable();
-            $table->integer('quatity');
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->integer('quantity');
             $table->unsignedBigInteger('unit_id');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
             $table->string('sub_total');

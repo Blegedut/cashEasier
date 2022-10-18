@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        //
+        // 
     }
 
     /**
@@ -35,7 +36,27 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = Product::where('id', $request->product_id)->first();
+
+        $check = Transaction::where('product_id', $request->product_id)
+            ->where('unit_id', $request->unit_id)
+            ->first();
+            
+            // dd($request->unit_id);
+        if ($check?->quantity !== null) {
+            $transaction = Transaction::find($check->id)->update([
+                'quantity' => $check->quantity + $request->quantity
+            ]);
+        } else {
+            Transaction::create([
+                'unit_id' => $request->unit_id,
+                'quantity' => $request->quantity,
+                'product_id' => $request->product_id,
+                'sub_total' => $product->price * $request->quantity
+            ]);
+        }
+
+        return redirect()->back();
     }
 
     /**

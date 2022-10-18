@@ -12,8 +12,8 @@
                 </div>
                 <div class="col-6 col-lg-4 col-md-6">
                     <form class="d-flex" style="align-items: flex-end" role="search">
-                        <input class="form-control me-2" id="search" name="search" type="search"
-                            placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" id="search" name="search" type="search" placeholder="Search"
+                            aria-label="Search">
                         <button class="btn btn-success" type="submit">Search</button>
                     </form>
                 </div>
@@ -53,8 +53,8 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="text-center">
-                                                            <img src={{ asset('storage/image/foto_product/' . $pd->image) }} width="290px;"
-                                                                alt="">
+                                                            <img src={{ asset('storage/image/foto_product/' . $pd->image) }}
+                                                                width="290px;" alt="">
                                                         </div>
                                                         <h4 class="mt-3">
                                                             {{ $pd->name }}
@@ -71,8 +71,8 @@
                                                         <p class="font-semibold mb-4">
                                                             {{ $pd->description }}
                                                         </p>
-                                                        <form action="#" method="POST" enctype="multipart/form-data"
-                                                            class="form form-horizontal">
+                                                        <form action="{{ url('/transaction') }}" method="POST"
+                                                            enctype="multipart/form-data" class="form form-horizontal">
                                                             @csrf
                                                             <div class="form-body">
                                                                 <div class="row">
@@ -83,16 +83,17 @@
                                                                     </div>
                                                                     <div class="col-md-6 col-sm-21">
                                                                         <h6 class="mb-1">Unit :</h6>
-                                                                        <select class="choices form-select" name="unit">>
+                                                                        <select class="choices form-select" name="unit_id">>
                                                                             @foreach ($unit as $ut)
                                                                                 <option value="{{ $ut->id }}">
                                                                                     {{ $ut->unit }}</option>
                                                                             @endforeach
                                                                         </select>
                                                                     </div>
+                                                                    <input type="hidden" class="form-control"
+                                                                        value="{{ $pd->id }}" name="product_id">
                                                                 </div>
                                                             </div>
-                                                        </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -100,6 +101,7 @@
                                                         <button type="submit"
                                                             class="btn btn-primary me-1 mb-1">Submit</button>
                                                     </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
