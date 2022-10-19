@@ -38,6 +38,9 @@
         {{-- EDIT MODAL --}}
         <div class="col-md-8 col-sm-12 mb-2">
             @foreach ($products as $pd)
+            @php
+                // dd($pd);
+            @endphp
                 <div class="col-md-9 col-sm-12 card mb-3 p-3 shadow-sm">
 
                     <div class="row no-gutters">
@@ -86,13 +89,7 @@
                             </div>
                         </form>
                     </div>
-                    @php
-                        $total = 0;
-                    @endphp
                     @foreach ($products as $pd)
-                    @php
-                        $total += $pd->sub_total
-                    @endphp
                         <div class="card-body">
                             <div class="row ">
                                 <div class="col-8">

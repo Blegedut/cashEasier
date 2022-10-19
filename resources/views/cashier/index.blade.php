@@ -8,7 +8,12 @@
         <div class="card-header">
             <div class="row mb-3">
                 <div class="col-6 col-lg-8 col-md-6">
-                    <a href='{{ url('/cashier/checkout') }}' class="btn btn-primary">Chart</a>
+                    <a href='{{ url('/cashier/checkout') }}' class="btn btn-primary">
+                        Chart
+                        {{-- @foreach ($product_carts as $pc) --}}
+                            <span class="badge bg-transparent">{{$total_product_carts}}</span>
+                        {{-- @endforeach --}}
+                    </a>
                 </div>
                 <div class="col-6 col-lg-4 col-md-6">
                     <form class="d-flex" style="align-items: flex-end" role="search">

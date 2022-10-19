@@ -19,6 +19,15 @@ class CashierController extends Controller
     {
         $category = Categorie::with('products')->get();
 
+        $product_carts = Transaction::get();
+        $total_product_carts = 0;
+        foreach ($product_carts as $product_cart) {
+            $total_product_carts += $product_cart->quantity;
+            
+            $product_cart->quantity;
+        }
+        // dd($total_product_carts);
+
         $unit = Unit::get();
 
         if ($request->ajax()) {
@@ -125,23 +134,27 @@ class CashierController extends Controller
         }
 
 
-        return view('cashier.index', compact(['category', 'unit']));
+        return view('cashier.index', compact(['category', 'unit', 'total_product_carts']));
     }
 
     public function checkout()
     {
         $products = Transaction::with('product')->get();
-        // $total = 0;
         foreach ($products as $product) {
             $product->unit = Unit::where('id', $product->unit_id)->first();
         }
-        // foreach ($products as $pd) {
-        //     $total += $product->sub_total;
-        // }
-        $cart = Transaction::where('invoice_id', null)->first();
-        // dd($total);   
+        // dd($product->unit);
 
-        return view('checkout.index', compact(['cart','products']));
+        $total = 0;
+        foreach ($products as $pd) {
+            $total += $pd->sub_total;
+            $pd->sub_total;
+        }
+        // dd($total); 
+
+        $cart = Transaction::where('invoice_id', null)->first();
+
+        return view('checkout.index', compact(['cart','products', 'total']));
     }
 
     /**

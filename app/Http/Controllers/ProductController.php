@@ -18,7 +18,10 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $category = Categorie::with('products')->get();
-        // dd($product);
+        foreach ($category as $ct) {
+            $ct->unit = Unit::where('id', $ct->unit_id)->first();
+        }
+        // dd($ct->unit);
         $unit = Unit::get();
 
         if ($request->ajax()) {
@@ -241,11 +244,14 @@ class ProductController extends Controller
     public function show(Product $product, $id)
     {
         $category = Categorie::with('products')->get();
+        foreach ($category as $ct) {
+            $ct->unit = Unit::where('id', $ct->unit_id)->first();
+        }
         $product = Product::where('id', $id)->firstOrFail();
-        $unit = Unit::get();
+        // $unit = Unit::get();
 
 
-        return view('product.show', compact(['category', 'product', 'unit']));
+        return view('product.show', compact(['category', 'product']));
     }
 
     /**
