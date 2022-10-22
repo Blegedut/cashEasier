@@ -17,43 +17,47 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $category = Categorie::with('products')->get();
-        // dd($product);
-        $unit = Unit::get();
+        // $category = Categorie::with('products')->get();
+        // $unit = Unit::get();
+
+        $products = Product::with('category', 'unit')->get();
+        foreach ($products as $product) {
+            $product->category = Categorie::where('id', $product->categorie_id)->first();
+            $product->unit = Unit::where('id', $product->unit_id)->first();
+        }
+        // dd($products);
 
         if ($request->ajax()) {
 
             $output = '';
 
-            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
+            $search_products = Product::where('name', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+                ->with('category', 'unit')
                 ->get();
-            if ($products) {
-                foreach ($products as $pd) {
+            if ($search_products) {
+                foreach ($search_products as $sp) {
                     $output .= '
                     <div class="col-6 col-lg-2 col-md-6">
                     <div class="card shadow-sm">
                     <div class="card-content">
-                    <img src="' . asset('storage/image/foto_product/' . $pd->image) . '" style="height:15rem"
-                                        class="card-img-top img-fluid" alt="{{ $pd->image }}">
+                    <img src="' . asset('storage/image/foto_product/' . $sp->image) . '" style="height:15rem"
+                                        class="card-img-top img-fluid" alt="{{ $sp->image }}">
                         <div class="card-body">
-                            <h5 class="card-title">' . $pd->name . '</h5>
+                            <h5 class="card-title">' . $sp->name . '</h5>
                             <h6 class="card text font-semibold mt-3 mb-1">
-                                Stock : ' . $pd->stock . '
+                                Stock : ' . $sp->stock . ' '. $sp->unit->unit .'
                             </h6>
                             <h6 class="card text font-semibold mb-2">
-                                Price : Rp. ' . $pd->price . '
+                                Price : Rp' . $sp->price . '/'. $sp->unit->unit .'
                             </h6>
                             <p class="card text mt-3 mb-1">
                                             <a class="collapsed" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal' . $pd->id . '">
+                                                data-bs-target="#exampleModal' . $sp->id . '">
                                                 Description
                                             </a>
                                         </p>
-                                        ';
-                    foreach ($category as $ct) {
-                        $output .= '
-                                        <div class="modal fade modal-borderless" id="exampleModal' . $pd->id . '"
+                                        <div class="modal fade modal-borderless" id="exampleModal' . $sp->id . '"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div
                                                 class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable">
@@ -65,41 +69,41 @@ class ProductController extends Controller
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="text-center">
-                                                            <img src= "' . asset('storage/image/foto_product/' . $pd->image) . '"
+                                                            <img src= "' . asset('storage/image/foto_product/' . $sp->image) . '"
                                                                 width="290px;" height="290px" alt="">
                                                         </div>
                                                         <div class="d-flex justify-content-between">
                                                             <h4 class="mt-5">
-                                                                ' . $pd->name . '
+                                                                ' . $sp->name . '
                                                             </h4>
                                                             <h5 class="mt-5">
-                                                                Rp. ' . $pd->price . '
+                                                                Rp' . $sp->price . '/'. $sp->unit->unit .'
                                                             </h5>
                                                         </div>
                                                         <h6 class="font-bold mt-4 mb-1">
                                                             Category
                                                         </h6>
                                                         <h6 class="font-semibold mb-4">
-                                                            ' . $ct->category . '
+                                                            ' . $sp->category->category . '
                                                         </h6>
                                                         <h6 class="font-bold mt-2 mb-1">
                                                             Stock
                                                         </h6>
                                                         <h6 class="font-semibold mb-4">
-                                                            ' . $pd->stock . '
+                                                            ' . $sp->stock . ' '. $sp->unit->unit .'
                                                         </h6>
                                                         <h6 class="font-bold mt-2 mb-1">
                                                             Deskripsi
                                                         </h6>
                                                         <p class="font-semibold mb-4">
-                                                            ' . $pd->description . '
+                                                            ' . $sp->description . '
                                                         </p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#modalDelete' . $pd->id . '">Delete</button>
-                                                            <a href="' . url('/product/show/' . $pd->id) . '" class="btn btn-primary">Edit</a>
+                                                            data-bs-target="#modalDelete' . $sp->id . '">Delete</button>
+                                                            <a href="' . url('/product/show/' . $sp->id) . '" class="btn btn-primary">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -110,17 +114,17 @@ class ProductController extends Controller
                         </div>
                     </div>
                     </div>
-                    <div class="modal fade" id="modalDelete' . $pd->id . '" tabindex="-1" aria-labelledby="modalHapusBarang"
+                    <div class="modal fade" id="modalDelete' . $sp->id . '" tabindex="-1" aria-labelledby="modalHapusBarang"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-body">
                             <i class="fas fa-exclamation-circle mb-2"
                                 style="color: #e74a3b; font-size:120px; justify-content:center; display:flex"></i>
-                            <h5 class="text-center">Apakah anda yakin ingin menghapus {{ $pd->name }} ?</h5>
+                            <h5 class="text-center">Apakah anda yakin ingin menghapus '.$sp->name.' ?</h5>
                         </div>
                         <div class="modal-footer">
-                            <form action=' . url('/product/delete/' . $pd->id) . ' method="POST">
+                            <form action=' . url('/product/delete/' . $sp->id) . ' method="POST">
                                 @csrf
                                 @method(' . 'DELETE' . ')
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -131,13 +135,12 @@ class ProductController extends Controller
                 </div>
             </div>
                     ';
-                    }
                 }
                 return response()->json($output);
             }
         }
 
-        return view('product.index', compact(['category', 'unit']));
+        return view('product.index', compact(['products']));
     }
 
     // public function search(Request $request)
