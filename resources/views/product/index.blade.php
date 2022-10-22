@@ -6,9 +6,8 @@
         aria-hidden="true">
         <div class="modal-lg modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title white" id="exampleModalLabel">Add New Product</h5>
                 </div>
                 <div class="modal-body">
                     <form action="{{ url('/product/store') }}" method="POST" enctype="multipart/form-data"
@@ -28,8 +27,8 @@
                                 </div>
                                 <div class="col-md-8 mb-3 form-group">
                                     <select class="choices form-select" name="category" required>
-                                        @foreach ($products as $product)
-                                            <option value="{{ $product->category->id }}">{{ $product->category->category }}
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->category }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -42,8 +41,8 @@
                                 </div>
                                 <div class="col-md-3 mb-3 form-group">
                                     <select class="choices form-select" name="unit">>
-                                        @foreach ($products as $product)
-                                            <option value="{{ $product->unit->id }}">{{ $product->unit->unit }}</option>
+                                        @foreach ($units as $unit)
+                                            <option value="{{ $unit->id }}">{{ $unit->unit }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -91,6 +90,9 @@
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h5 class="modal-title white" id="exampleModalLabel">Delete</h5>
+                    </div>
                     <div class="modal-body">
                         <i class="fas fa-exclamation-circle mb-2"
                             style="color: #e74a3b; font-size:120px; justify-content:center; display:flex"></i>
@@ -157,10 +159,8 @@
                                         <div
                                             class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable">
                                             <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Description</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                <div class="modal-header bg-primary">
+                                                    <h5 class="modal-title white" id="exampleModalLabel">Description</h5>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="text-center">

@@ -17,14 +17,13 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // $category = Categorie::with('products')->get();
-        // $unit = Unit::get();
-
         $products = Product::with('category', 'unit')->get();
         foreach ($products as $product) {
             $product->category = Categorie::where('id', $product->categorie_id)->first();
             $product->unit = Unit::where('id', $product->unit_id)->first();
         }
+        $categories = Categorie::get();
+        $units = Unit::get();
         // dd($products);
 
         if ($request->ajax()) {
@@ -140,7 +139,7 @@ class ProductController extends Controller
             }
         }
 
-        return view('product.index', compact(['products']));
+        return view('product.index', compact(['products', 'categories', 'units']));
     }
 
     // public function search(Request $request)

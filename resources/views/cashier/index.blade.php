@@ -9,7 +9,7 @@
             <div class="row mb-3">
                 <div class="col-6 col-lg-8 col-md-6">
                     <a href='{{ url('/cashier/checkout') }}' class="btn btn-primary">
-                        Chart
+                        Cart
                         {{-- @foreach ($product_carts as $pc) --}}
                             <span class="badge bg-transparent">{{$total_product_carts}}</span>
                         {{-- @endforeach --}}
@@ -44,17 +44,15 @@
                                         <p class="card text mt-3 mb-1">
                                             <a class="collapsed" href="#" data-bs-toggle="modal"
                                                 data-bs-target="#kasirDescModal{{ $pd->id }}">
-                                                Detail
+                                                Add to cart
                                             </a>
                                         </p>
                                         <div class="modal fade modal-borderless" id="kasirDescModal{{ $pd->id }}"
                                             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-scrollable">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Description</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
+                                                    <div class="modal-header bg-primary">
+                                                        <h5 class="modal-title white" id="exampleModalLabel">Add to cart</h5>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="text-center">
