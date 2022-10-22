@@ -18,10 +18,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $category = Categorie::with('products')->get();
-        foreach ($category as $ct) {
-            $ct->unit = Unit::where('id', $ct->unit_id)->first();
-        }
-        // dd($ct->unit);
+        // dd($product);
         $unit = Unit::get();
 
         if ($request->ajax()) {
@@ -101,8 +98,8 @@ class ProductController extends Controller
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#modalDelete'.$pd->id.'">Delete</button>
-                                                            <a href="'. url('/product/show/' . $pd->id) .'" class="btn btn-primary">Edit</a>
+                                                            data-bs-target="#modalDelete' . $pd->id . '">Delete</button>
+                                                            <a href="' . url('/product/show/' . $pd->id) . '" class="btn btn-primary">Edit</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,7 +110,7 @@ class ProductController extends Controller
                         </div>
                     </div>
                     </div>
-                    <div class="modal fade" id="modalDelete'.$pd->id.'" tabindex="-1" aria-labelledby="modalHapusBarang"
+                    <div class="modal fade" id="modalDelete' . $pd->id . '" tabindex="-1" aria-labelledby="modalHapusBarang"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -123,9 +120,9 @@ class ProductController extends Controller
                             <h5 class="text-center">Apakah anda yakin ingin menghapus {{ $pd->name }} ?</h5>
                         </div>
                         <div class="modal-footer">
-                            <form action='. url('/product/delete/' . $pd->id) .' method="POST">
+                            <form action=' . url('/product/delete/' . $pd->id) . ' method="POST">
                                 @csrf
-                                @method('.'DELETE'.')
+                                @method(' . 'DELETE' . ')
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-primary">Yes, Delete it</button>
                             </form>
@@ -221,7 +218,7 @@ class ProductController extends Controller
 
         // $img = $request->file('image');
         // $filename = $img->getClientOriginalName();
-        $filename = time() .'.jpg';
+        $filename = time() . '.jpg';
 
         // $product->image = $request->file('image')->getClientOriginalName();
         if ($request->hasFile('image')) {
@@ -243,15 +240,10 @@ class ProductController extends Controller
      */
     public function show(Product $product, $id)
     {
-        $category = Categorie::with('products')->get();
-        foreach ($category as $ct) {
-            $ct->unit = Unit::where('id', $ct->unit_id)->first();
-        }
-        $product = Product::where('id', $id)->firstOrFail();
-        // $unit = Unit::get();
+        $products = Product::where('id', $id)->with('category', 'unit')->get();
+        // dd($products);
 
-
-        return view('product.show', compact(['category', 'product']));
+        return view('product.show', compact(['products']));
     }
 
     /**
@@ -284,18 +276,20 @@ class ProductController extends Controller
             'unit' => 'required',
             'stock' => 'required',
             'price' => 'required',
-            'image' => 'required|file|max:3072',
         ]);
 
         $img = $request->file('image');
-        $filename = $img->getClientOriginalName();
+        if ($img != null) {
+            # code...
+            $filename = $img->getClientOriginalName();
 
-        $product->image = $request->file('image')->getClientOriginalName();
-        if ($request->hasFile('image')) {
-            if ($request->oldImage) {
-                Storage::delete('/public/image/foto_product/' . $request->oldImage);
+            $product->image = $request->file('image')->getClientOriginalName();
+            if ($request->hasFile('image')) {
+                if ($request->oldImage) {
+                    Storage::delete('/public/image/foto_product/' . $request->oldImage);
+                }
+                $request->file('image')->storeAs('/public/image/foto_product', $filename);
             }
-            $request->file('image')->storeAs('/public/image/foto_product', $filename);
         }
 
         $product->name = $request->name;

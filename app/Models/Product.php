@@ -26,7 +26,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo(Categorie::class, 'categorie_id');
     }
 
     public function unit()
