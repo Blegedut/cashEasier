@@ -37,6 +37,7 @@ Route::group(['prefix' => 'cashier'], function () {
 
 Route::group(['prefix' => 'transaction'], function () {
     Route::post('/', [TransactionController::class, 'store'])->name('transaction.index');
+    Route::put('/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 });
 
 Route::group(['prefix' => 'report'], function () {

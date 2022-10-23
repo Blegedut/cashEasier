@@ -45,7 +45,9 @@ class TransactionController extends Controller
             // dd($request->unit_id);
         if ($check?->quantity !== null) {
             $transaction = Transaction::find($check->id)->update([
-                'quantity' => $check->quantity + $request->quantity
+                $sub_total = $product->price * $request->quantity,
+                'quantity' => $check->quantity + $request->quantity,
+                'sub_total' => $check->sub_total + $sub_total
             ]);
         } else {
             Transaction::create([
@@ -78,7 +80,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        // 
     }
 
     /**
@@ -88,9 +90,35 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, Transaction $transaction, $id)
     {
-        //
+        $transactions = Transaction::where('id', $id)->with('product')->first();
+        
+        $this->validate($request, [
+                'quantity' => 'required',
+                'unit_id' => 'required',
+                'product_id' => 'required'
+            ]);
+            
+        $sub_total = $transactions->product->price * $request->quantity;
+        
+        $transactions->quantity = $request->quantity;
+        $transactions->unit_id = $request->unit_id;
+        $transactions->product_id = $request->product_id;
+        $transactions->sub_total = $request->sub_total + $sub_total;
+        // dd($transactions);
+        $transactions->update();
+
+
+        // $products = Product::where('id', $request->product_id)->first();
+        // $check = Transaction::where('product_id', $request->product_id)->first();
+        // $transaction = Transaction::find($check->id)->update([
+        //     $sub_total = $products->price * $request->quantity,
+        //     'quantity' => $check->quantity + $request->quantity,
+        //     'sub_total' => $check->sub_total + $sub_total
+        // ]);
+
+        return redirect()->back();
     }
 
     /**

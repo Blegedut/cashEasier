@@ -41,7 +41,7 @@ class ProductController extends Controller
                     <div class="card shadow-sm">
                     <div class="card-content">
                     <img src="' . asset('storage/image/foto_product/' . $sp->image) . '" style="height:15rem"
-                                        class="card-img-top img-fluid" alt="{{ $sp->image }}">
+                                        class="card-img-top img-fluid" alt="'. $sp->image .'">
                         <div class="card-body">
                             <h5 class="card-title">' . $sp->name . '</h5>
                             <h6 class="card text font-semibold mt-3 mb-1">

@@ -5,60 +5,74 @@
         <h3>Checkout</h3>
     </div>
     <div class="row">
-        <!-- Modal edit-->
-        <div class="modal fade modal-borderless" id="checkoutEdit" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Description</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="text-center">
-                            <img src="assets/images/samples/helix-hx5.jpeg" width="290px;" alt="">
+        {{-- MODAL EDIT --}}
+        @foreach ($products as $product)
+            <div class="modal fade modal-borderless" id="checkoutEdit{{ $product->id }}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title white" id="exampleModalLabel">Edit</h5>
                         </div>
-                        <form class="form form-horizontal">
-                            <div class="form-body">
-                                <div class="row mt-5">
-                                    <div class="col-md-4">
-                                        <label>Jumlah</label>
-                                    </div>
-                                    <div class="col-md-8 mb-3 form-group">
-                                        <input type="number" class="form-control" name="fname"
-                                            placeholder="Product Name">
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <img src={{ asset('storage/image/foto_product/' . $product->product->image) }}
+                                    width="290px;" alt="">
+                            </div>
+                            <form action={{ url('/transaction/update/' . $product->id) }} method="POST"
+                                enctype="multipart/form-data" class="form form-horizontal">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-md-7 col-sm-12 my-4">
+                                            <h6 class="mb-1">Jumlah :</h6>
+                                            <input type="number" class="form-control" name="quantity">
+                                        </div>
+                                        <div class="col-md-5 col-sm-12 my-4">
+                                            <h6 class="mb-1">Unit :</h6>
+                                            <select class="form-select" disabled="disabled" name="unit_id">>
+                                                @foreach ($units as $unit)
+                                                    <option value="{{ $unit->id }}">
+                                                        {{ $unit->unit }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <input type="hidden" class="form-control" value="{{ $product->id }}"
+                                            name="product_id">
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {{-- EDIT MODAL --}}
-        <div class="col-md-8 col-sm-12 mb-2">
-            @foreach ($products as $pd)
-            @php
-                // dd($pd);
-            @endphp
-                <div class="col-md-9 col-sm-12 card mb-3 p-3 shadow-sm">
+        @endforeach
+        {{-- MODAL EDIT --}}
+        <div class="col-6 col-md-8 col-sm-12">
+            @foreach ($products as $product)
+                <div class="col-md-10 col-sm-12 card mb-3 p-3 shadow-sm">
 
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src={{ asset('storage/image/foto_product/' . $pd->product->image) }} class="card-img"
+                            <img src={{ asset('storage/image/foto_product/' . $product->product->image) }} class="card-img"
                                 alt="..." style="height:15rem">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $pd->product->name }}</h5>
+                                <h5 class="card-title">{{ $product->product->name }}</h5>
                                 <h6 class="card text font-semibold mb-2">
-                                    Rp. {{ $pd->product->price }}
+                                    Rp. {{ $product->product->price }}
                                 </h6>
                                 <p class="card text font-semibold mt-3">
-                                    Jumlah Produk : {{ $pd->quantity }} {{ $pd->unit->unit }}
+                                    Jumlah Produk : {{ $product->quantity }} {{ $product->unit->unit }}
                                 </p>
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#checkoutEdit">
+                                    data-bs-target="#checkoutEdit{{ $product->id }}">
                                     Edit
                                 </button>
                                 <a class="btn btn-danger" href="#">
@@ -71,7 +85,7 @@
             @endforeach
         </div>
 
-        <div class="col-md-3 col-sm-12">
+        <div class="col-6 col-md-3 col-sm-12">
             {{-- <div class="card"> --}}
             <div class="card border-0 shadow-lg">
                 <div class="card-content">
@@ -90,6 +104,7 @@
                         </form>
                     </div>
                     @foreach ($products as $pd)
+                        {{-- @dd($pd->sub_total) --}}
                         <div class="card-body">
                             <div class="row ">
                                 <div class="col-8">
