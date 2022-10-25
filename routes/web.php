@@ -32,12 +32,13 @@ Route::group(['prefix' => 'product'], function () {
 
 Route::group(['prefix' => 'cashier'], function () {
     Route::get('/', [CashierController::class, 'index'])->name('cashier.index');
-    Route::get('/checkout', [CashierController::class, 'checkout'])->name('checkout.index');
+    Route::get('/checkout', [CashierController::class, 'checkout'])->name('cashier.checkout');
 });
 
 Route::group(['prefix' => 'transaction'], function () {
     Route::post('/', [TransactionController::class, 'store'])->name('transaction.index');
     Route::put('/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
+    Route::delete('/delete/{id}', [TransactionController::class, 'destroy'])->name('transaction.destroy');
 });
 
 Route::group(['prefix' => 'report'], function () {

@@ -139,24 +139,22 @@ class CashierController extends Controller
 
     public function checkout()
     {
-        $units = Unit::get();
-
-        $products = Transaction::with('product')->get();
-        foreach ($products as $product) {
-            $product->unit = Unit::where('id', $product->unit_id)->first();
+        $transactions = Transaction::with('product')->get();
+        foreach ($transactions as $transaction) {
+            $transaction->unit = Unit::where('id', $transaction->unit_id)->first();
         }
-        // dd($product->unit);
+        // dd($transaction);
 
         $total = 0;
-        foreach ($products as $pd) {
-            $total += $pd->sub_total;
-            $pd->sub_total;
+        foreach ($transactions as $transaction) {
+            $total += $transaction->sub_total;
+            $transaction->sub_total;
         }
-        // dd($products->sub_total);
+        // dd($transactions->sub_total);
 
         // $cart = Transaction::where('invoice_id', null)->first();
 
-        return view('checkout.index', compact(['products', 'total', 'units']));
+        return view('checkout.index', compact(['transactions', 'total']));
     }
 
     /**

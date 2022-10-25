@@ -6,78 +6,119 @@
     </div>
     <div class="row">
         {{-- MODAL EDIT --}}
-        @foreach ($products as $product)
-            <div class="modal fade modal-borderless" id="checkoutEdit{{ $product->id }}" tabindex="-1"
+        @foreach ($transactions as $transaction)
+            <div class="modal fade modal-borderless" id="checkoutEdit{{ $transaction->id }}" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
-                            <h5 class="modal-title white" id="exampleModalLabel">Edit</h5>
+                            <h5 class="modal-title white" id="exampleModalLabel">Add to cart</h5>
                         </div>
                         <div class="modal-body">
                             <div class="text-center">
-                                <img src={{ asset('storage/image/foto_product/' . $product->product->image) }}
+                                <img src={{ asset('storage/image/foto_product/' . $transaction->product->image) }}
                                     width="290px;" alt="">
                             </div>
-                            <form action={{ url('/transaction/update/' . $product->id) }} method="POST"
+                            <div class="d-flex justify-content-between">
+                                <h4 class="mt-5">
+                                    {{ $transaction->product->name }}
+                                </h4>
+                                <h5 class="mt-5">
+                                    Rp{{ $transaction->product->price }}/{{ $transaction->unit->unit }}
+                                </h5>
+                            </div>
+                            <h6 class="font-semibold mt-4 mb-1">
+                                Deskripsi :
+                            </h6>
+                            <p class="font-semibold mb-4">
+                                {{ $transaction->product->description }}
+                            </p>
+                            <form action="{{ url('/transaction/update/' . $transaction->id) }}" method="POST"
                                 enctype="multipart/form-data" class="form form-horizontal">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-body">
                                     <div class="row">
-                                        <div class="col-md-7 col-sm-12 my-4">
+                                        <div class="col-md-6 col-sm-21">
                                             <h6 class="mb-1">Jumlah :</h6>
-                                            <input type="number" class="form-control" name="quantity">
+                                            <input type="number" class="form-control" name="quantity" required>
                                         </div>
-                                        <div class="col-md-5 col-sm-12 my-4">
+                                        <div class="col-md-6 col-sm-21">
                                             <h6 class="mb-1">Unit :</h6>
-                                            <select class="form-select" disabled="disabled" name="unit_id">>
-                                                @foreach ($units as $unit)
-                                                    <option value="{{ $unit->id }}">
-                                                        {{ $unit->unit }}</option>
-                                                @endforeach
+                                            {{-- @dd($transactions) --}}
+                                            <select class="choices form-select" name="unit_id">>
+                                                {{-- @foreach ($unit as $ut) --}}
+                                                <option value="{{ $transaction->unit->id }}">
+                                                    {{ $transaction->unit->unit }}</option>
+                                                {{-- @endforeach --}}
                                             </select>
                                         </div>
-                                        <input type="hidden" class="form-control" value="{{ $product->id }}"
-                                            name="product_id">
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+        {{-- MODAL EDIT --}}
+
+        {{-- MODAL DELETE --}}
+        @foreach ($transactions as $transaction)
+            <div class="modal fade" id="modalDelete{{ $transaction->id }}" tabindex="-1" aria-labelledby="modalHapusBarang"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                            <h5 class="modal-title white" id="exampleModalLabel">Delete</h5>
+                        </div>
+                        <div class="modal-body">
+                            <i class="fas fa-exclamation-circle mb-2"
+                                style="color: #e74a3b; font-size:120px; justify-content:center; display:flex"></i>
+                            <h5 class="text-center">Apakah anda yakin ingin menghapus {{ $transaction->product->name }} ?
+                            </h5>
+                        </div>
+                        <div class="modal-footer">
+                            <form action={{ url('/transaction/delete/' . $transaction->id) }} method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Yes, Delete it</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
-        {{-- MODAL EDIT --}}
+        {{-- MODAL DELETE --}}
         <div class="col-6 col-md-8 col-sm-12">
-            @foreach ($products as $product)
+            @foreach ($transactions as $transaction)
                 <div class="col-md-10 col-sm-12 card mb-3 p-3 shadow-sm">
 
                     <div class="row no-gutters">
                         <div class="col-md-4">
-                            <img src={{ asset('storage/image/foto_product/' . $product->product->image) }} class="card-img"
-                                alt="..." style="height:15rem">
+                            <img src={{ asset('storage/image/foto_product/' . $transaction->product->image) }}
+                                class="card-img" alt="..." style="height:15rem">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{ $product->product->name }}</h5>
+                                <h5 class="card-title">{{ $transaction->product->name }}</h5>
                                 <h6 class="card text font-semibold mb-2">
-                                    Rp. {{ $product->product->price }}
+                                    Rp. {{ $transaction->product->price }}
                                 </h6>
                                 <p class="card text font-semibold mt-3">
-                                    Jumlah Produk : {{ $product->quantity }} {{ $product->unit->unit }}
+                                    Jumlah Produk : {{ $transaction->quantity }} {{ $transaction->unit->unit }}
                                 </p>
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#checkoutEdit{{ $product->id }}">
+                                    data-bs-target="#checkoutEdit{{ $transaction->id }}">
                                     Edit
                                 </button>
-                                <a class="btn btn-danger" href="#">
-                                    Delete
-                                </a>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#modalDelete{{ $transaction->id }}">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -103,15 +144,15 @@
                             </div>
                         </form>
                     </div>
-                    @foreach ($products as $pd)
-                        {{-- @dd($pd->sub_total) --}}
+                    @foreach ($transactions as $transaction)
+                        {{-- @dd($transaction->sub_total) --}}
                         <div class="card-body">
                             <div class="row ">
                                 <div class="col-8">
-                                    <p class="card-text"> {{ $pd->product->name }} </p>
+                                    <p class="card-text"> {{ $transaction->product->name }} </p>
                                 </div>
                                 <div class="col-4">
-                                    <p class="card-text">{{ $pd->sub_total }}</p>
+                                    <p class="card-text">{{ $transaction->sub_total }}</p>
                                 </div>
                             </div>
                         </div>

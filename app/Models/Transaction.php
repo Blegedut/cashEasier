@@ -19,7 +19,7 @@ class Transaction extends Model
 
     public function unit()
     {
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo(Unit::class);
     }
 
     public function product()
