@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\CashierController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return redirect('/login');
 });
 
 Route::group(['prefix' => 'product'], function () {
@@ -43,5 +47,17 @@ Route::group(['prefix' => 'transaction'], function () {
 
 Route::group(['prefix' => 'report'], function () {
     Route::get('/', [SaleController::class, 'index'])->name('report.index');
-    Route::get('/detail', [SaleController::class, 'show'])->name('detail.index');
+    Route::get('/detail/{id}', [SaleController::class, 'show'])->name('detail.index');
 });
+
+Route::group(['prefix' => 'invoice'], function () {
+    Route::get('/', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::post('/store', [InvoiceController::class, 'store'])->name('invoice.store');
+});
+
+Route::group(['prefix' => 'customer'], function () {
+    Route::post('/store', [CustomerController::class, 'store'])->name('customer.index');
+});
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');

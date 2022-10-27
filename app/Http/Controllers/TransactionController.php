@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -38,7 +39,7 @@ class TransactionController extends Controller
     {
         $product = Product::where('id', $request->product_id)->first();
 
-        $check = Transaction::where('product_id', $request->product_id)
+        $check = Transaction::where('invoice_id', null)->where('product_id', $request->product_id)
             ->where('unit_id', $request->unit_id)
             ->first();
             
@@ -52,6 +53,7 @@ class TransactionController extends Controller
         } else {
             Transaction::create([
                 'unit_id' => $request->unit_id,
+                'user_id' => Auth::user()->id,
                 'quantity' => $request->quantity,
                 'product_id' => $request->product_id,
                 'sub_total' => $product->price * $request->quantity

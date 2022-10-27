@@ -100,11 +100,11 @@
                 <div class="col-md-10 col-sm-12 card mb-3 p-3 shadow-sm">
 
                     <div class="row no-gutters">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <img src={{ asset('storage/image/foto_product/' . $transaction->product->image) }}
                                 class="card-img" alt="..." style="height:15rem">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $transaction->product->name }}</h5>
                                 <h6 class="card text font-semibold mb-2">
@@ -113,7 +113,19 @@
                                 <p class="card text font-semibold mt-3">
                                     Jumlah Produk : {{ $transaction->quantity }} {{ $transaction->unit->unit }}
                                 </p>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                            </div>
+                            {{-- <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-warning mx-3" data-bs-toggle="modal"
+                                    data-bs-target="#checkoutEdit{{ $transaction->id }}">
+                                    Edit
+                                </button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#modalDelete{{ $transaction->id }}">Delete</button>
+                            </div> --}}
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-end">
+                            <div class="d-flex align-items-stretch">
+                                <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal"
                                     data-bs-target="#checkoutEdit{{ $transaction->id }}">
                                     Edit
                                 </button>
@@ -133,16 +145,26 @@
 
                     <div class="card-header">
                         <p>Transaksi</p>
-                        <form action="#" method="post">
+                        <form action="{{ url('/invoice/store') }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-5">
                                     <label>Customer name</label>
                                 </div>
                                 <div class="col-7 form-group">
-                                    <input class="form-control form-control-sm" type="text" id="formFile" required>
+                                    <input class="form-control form-control-sm" type="text" name="name" id="formFile"
+                                        required>
                                 </div>
                             </div>
-                        </form>
+                            <div class="row">
+                                <div class="col-5">
+                                    <label>Nomor Plat</label>
+                                </div>
+                                <div class="col-7 form-group">
+                                    <input class="form-control form-control-sm" type="text" name="no_plat"
+                                        id="formFile" required>
+                                </div>
+                            </div>
                     </div>
                     @foreach ($transactions as $transaction)
                         {{-- @dd($transaction->sub_total) --}}
@@ -164,11 +186,16 @@
                             Total Harga
                         </div>
                         <div class="col-4">
-                            <p style="color: green">{{ $total }}</p>
+                            <p class="form-control-static" style="color: green" id="staticInput">
+                                {{ $total }}
+                            </p>
+                            <input class="form-control form-control-sm" type="hidden" name="total"
+                                value="{{ $total }}">
                         </div>
-                        <button class="btn btn-success mt-2">Bayar Sekarang</button>
+                        <button class="btn btn-success mt-2" type="submit">Bayar Sekarang</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ class CashierController extends Controller
     {
         $category = Categorie::with('products')->get();
 
-        $product_carts = Transaction::get();
+        $product_carts = Transaction::where('invoice_id', null)->get();
 
         $total_product_carts = 0;
         foreach ($product_carts as $product_cart) {
@@ -139,7 +139,10 @@ class CashierController extends Controller
 
     public function checkout()
     {
-        $transactions = Transaction::with('product')->get();
+        // $t = Transaction::all();
+        // dd($t);
+
+        $transactions = Transaction::where('invoice_id', null)->with('product')->get();
         foreach ($transactions as $transaction) {
             $transaction->unit = Unit::where('id', $transaction->unit_id)->first();
         }

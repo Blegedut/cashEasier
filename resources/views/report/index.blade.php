@@ -14,116 +14,25 @@
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Date</th>
                         <th>Customer name</th>
+                        <th>Plat nomor</th>
+                        <th>Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>12</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>13</td>
-                        <td>09-14-2022</td>
-                        <td>arul</td>
-                        <td>
-                            <a class="btn btn-info"  href={{ url('report/detail') }}>Detail</a>
-                        </td>
-                    </tr>
+                    @foreach ($sales as $sale)
+                        <tr>
+                            {{-- @dd($invoice); --}}
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $sale->invoices->customer->name }}</td>
+                            <td>{{ $sale->invoices->customer->plat_number }}</td>
+                            <td>{{ $sale->invoices->customer->created_at }}</td>
+                            <td>
+                                <a class="btn btn-info" href={{ url('report/detail/' . $sale->id) }}>Detail</a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\Transaction;
+use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
@@ -14,7 +19,11 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        //
+        $invoices = Transaction::with('product', 'invoice')->first();
+        // dd($invoices);
+
+
+        return view('invoice.index');
     }
 
     /**
@@ -35,7 +44,46 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = Customer::create([
+            'name' => $request->name,
+            'plat_number' => $request->no_plat
+        ]);
+
+        $invoice = Invoice::create([
+            'customer_id' => $customer->id,
+            'total' => $request->total
+        ]);
+
+        $sales = Sale::create([
+            'invoice_id' => $invoice->id
+        ]);
+
+        $transactions = Transaction::where('user_id', Auth::user()->id)->where('invoice_id', null)->get();
+        foreach ($transactions as $transaction) {
+            $transaction->update([
+                'invoice_id' => $invoice->id
+            ]);
+            // dd($transaction);
+
+            $product = Product::where('id', $transaction->product_id)->first();
+            $product->update([
+                'stock' => $product->stock - $transaction->quantity
+            ]);
+        }
+
+        // $product = 
+
+        // dd($transaction);
+
+        // $product = Product::where('id', $transaction->id)->get();
+
+        // $product->update([
+        //     'stock' => $product->stock - $transaction->quantity
+        // ]);
+
+        // dd($invoice,$transaction);
+
+        return redirect('/report/detail/' . $sales->id);
     }
 
     /**
