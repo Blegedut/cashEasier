@@ -44,6 +44,10 @@ class TransactionController extends Controller
             ->first();
             
             // dd($request->unit_id);
+        if ($product->stock < $request->quantity) {
+            return redirect()->back();
+        }
+        
         if ($check?->quantity !== null) {
             $transaction = Transaction::find($check->id)->update([
                 $sub_total = $product->price * $request->quantity,
