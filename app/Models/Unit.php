@@ -10,7 +10,12 @@ class Unit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'unit'
+        'product_id',
+        'invoice_id',
+        'user_id',
+        'quantity',
+        'unit_id',
+        'sub_total'
     ];
 
     public function product()

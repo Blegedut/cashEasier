@@ -6,7 +6,7 @@
     </div>
     <div class="card">
         <div class="card-header">
-            <a href="#" class="btn btn-success rounded-pill">Export to excel</a>
+            <a href={{ url('export/sales') }} class="btn btn-success rounded-pill">Export to excel</a>
             <a href="#" class="btn btn-danger rounded-pill">Export to pdf</a>
         </div>
         <div class="card-body">

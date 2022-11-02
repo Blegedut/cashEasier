@@ -10,6 +10,10 @@ use App\Models\Transaction;
 
 class CashierController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +21,16 @@ class CashierController extends Controller
      */
     public function index(Request $request)
     {
-        $category = Categorie::with('products')->get();
+        $products = Product::with('category', 'unit')->get();
+        foreach ($products as $product) {
+            // $product->category = Categorie::where('id', $product->categorie_id)->first();
+            $product->unit = Unit::where('id', $product->unit_id)->first();
+        }
+        $unit = Unit::get();
+        // dd($products);
+
+
+        // $category = Categorie::with('products')->get();
 
         $product_carts = Transaction::where('invoice_id', null)->get();
 
@@ -26,19 +39,17 @@ class CashierController extends Controller
             $total_product_carts += $product_cart->quantity;
             $product_cart->quantity;
         }
-        // dd($total_product_carts);
 
-        $unit = Unit::get();
 
         if ($request->ajax()) {
 
             $output = '';
 
-            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
+            $search_products = Product::where('name', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('description', 'LIKE', '%' . $request->search . '%')
                 ->get();
-            if ($products) {
-                foreach ($products as $pd) {
+            if ($search_products) {
+                foreach ($search_products as $pd) {
                     $output .= '
                     <div class="col-6 col-lg-2 col-md-6">
                             <div class="card shadow-sm">
@@ -48,10 +59,10 @@ class CashierController extends Controller
                                     <div class="card-body">
                                         <h5 class="card-title">' . $pd->name . '</h5>
                                         <h6 class="card text font-semibold mt-3 mb-1">
-                                            Stock : ' . $pd->stock . '
+                                            Stock : ' . $pd->stock . ' / '.$pd->unit->unit.'
                                         </h6>
                                         <h6 class="card text font-semibold mb-2">
-                                            Price : Rp. ' . $pd->price . '
+                                            Price : Rp. ' . $pd->price . ' / '.$pd->unit->unit.'
                                         </h6>
                                         <p class="card text mt-3 mb-1">
                                             <a class="collapsed" href="#" data-bs-toggle="modal"
@@ -80,7 +91,7 @@ class CashierController extends Controller
                                                             Price :
                                                         </h6>
                                                         <h6 class="font-semibold mb-4">
-                                                            Rp. ' . $pd->price . '
+                                                            Rp. ' . $pd->price . ' / '.$pd->unit->unit.'
                                                         </h6>
                                                         <h6 class="font-semibold mt-4 mb-1">
                                                             Deskripsi :
@@ -101,12 +112,12 @@ class CashierController extends Controller
                                                                     <div class="col-md-6 col-sm-21">
                                                                         <h6 class="mb-1">Unit :</h6>
                                                                         <select class="choices form-select" name="unit_id">';
-                    foreach ($unit as $ut) {
-                        $output .= '
+                                                                            foreach ($unit as $ut) {
+                                                                            $output .= '
                                                                                 <option value="' . $ut->id . '">
                                                                                     ' . $ut->unit . '</option>';
-                    }
-                    $output .= '
+                                                                            }
+                                                                            $output .= '
                                                                         </select>
                                                                     </div>
                                                                     <input type="hidden" class="form-control"
@@ -127,6 +138,7 @@ class CashierController extends Controller
                                 </div>
                             </div>
                         </div>
+                        </div>
                     ';
                 }
                 return response()->json($output);
@@ -134,7 +146,7 @@ class CashierController extends Controller
         }
 
 
-        return view('cashier.index', compact(['category', 'unit', 'total_product_carts']));
+        return view('cashier.index', compact(['products', 'unit', 'total_product_carts']));
     }
 
     public function checkout()

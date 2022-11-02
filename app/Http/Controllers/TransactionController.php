@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +51,7 @@ class TransactionController extends Controller
         if ($product->stock < $request->quantity) {
             return redirect()->back();
         }
-        
+
         if ($check?->quantity !== null) {
             $transaction = Transaction::find($check->id)->update([
                 $sub_total = $product->price * $request->quantity,

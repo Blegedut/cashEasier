@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SalesExport;
 use App\Models\Customer;
+use App\Models\ExtraPrice;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Transaction;
 use App\Models\Unit;
+use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SaleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +28,7 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::get();
+        $total = 0;
         foreach ($sales as $sale) {
             $sale->invoices = Invoice::where('id', $sale->invoice_id)->first();
             $sale->invoices->customer = Customer::where('id', $sale->invoices->customer_id)->first();
@@ -28,6 +37,11 @@ class SaleController extends Controller
 
 
         return view('report.index', compact(['sales']));
+    }
+
+    public function export() 
+    {
+        return Excel::download(new SalesExport, 'sale.xlsx');
     }
 
     /**
@@ -60,10 +74,17 @@ class SaleController extends Controller
     public function show(Sale $sale, $id)
     {
         $sales = Sale::where('id', $id)->get();
+        $no = 1;
+        $total = 0;
         foreach ($sales as $sale) {
             $sale->invoice = Invoice::where('id', $sale->invoice_id)->first();
             $sale->invoice->customer = Customer::where('id', $sale->invoice->customer_id)->first();
+            $sale->invoice->extra = ExtraPrice::where('id', $sale->invoice->extra_price_id)->first();
             $sale->invoice->transactions = Transaction::where('invoice_id', $sale->invoice->id)->with('product', 'unit')->get();
+            foreach ($sale->invoice->transactions as $transaction) {
+                $total += $transaction->sub_total;
+            }
+            $total += $sale->invoice->extra->service + $sale->invoice->extra->steam;
             // $sale->invoice->transactions->product = Product::where('id', $sale->invoice->transactions->product_id)->first();
             // dd($sales);
         }
@@ -80,7 +101,7 @@ class SaleController extends Controller
         //     dd($invoice);
         // }
 
-        return view('report.show', compact('sales'));
+        return view('report.show', compact(['sales', 'total', 'no']));
     }
 
     /**
@@ -116,4 +137,25 @@ class SaleController extends Controller
     {
         //
     }
+
+    public function stream_pdf($id)
+{
+	$sales = Sale::where('id', $id)->get();
+        $total = 0;
+        foreach ($sales as $sale) {
+            $sale->invoice = Invoice::where('id', $sale->invoice_id)->first();
+            $sale->invoice->customer = Customer::where('id', $sale->invoice->customer_id)->first();
+            $sale->invoice->extra = ExtraPrice::where('id', $sale->invoice->extra_price_id)->first();
+            $sale->invoice->transactions = Transaction::where('invoice_id', $sale->invoice->id)->with('product', 'unit')->get();
+            foreach ($sale->invoice->transactions as $transaction) {
+                $total += $transaction->sub_total;
+            }
+            $total += $sale->invoice->extra->service + $sale->invoice->extra->steam;
+            // $sale->invoice->transactions->product = Product::where('id', $sale->invoice->transactions->product_id)->first();
+            // dd($sales);
+        }
+ 
+	$pdf = PDF::loadview('report.invoice_pdf',['sales'=>$sales, 'total'=>$total])->setPaper('a4', 'landscape');
+	return $pdf->stream('faktur-pdf');
+}
 }

@@ -97,8 +97,7 @@
         {{-- MODAL DELETE --}}
         <div class="col-6 col-md-8 col-sm-12">
             @foreach ($transactions as $transaction)
-                <div class="col-md-10 col-sm-12 card mb-3 p-3 shadow-sm">
-
+                <div class="col-md-11 col-sm-12 card mb-3 p-3 shadow-sm">
                     <div class="row no-gutters">
                         <div class="col-md-3">
                             <img src={{ asset('storage/image/foto_product/' . $transaction->product->image) }}
@@ -114,14 +113,6 @@
                                     Jumlah Produk : {{ $transaction->quantity }} {{ $transaction->unit->unit }}
                                 </p>
                             </div>
-                            {{-- <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-warning mx-3" data-bs-toggle="modal"
-                                    data-bs-target="#checkoutEdit{{ $transaction->id }}">
-                                    Edit
-                                </button>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#modalDelete{{ $transaction->id }}">Delete</button>
-                            </div> --}}
                         </div>
                         <div class="col-md-3 d-flex justify-content-end">
                             <div class="d-flex align-items-stretch">
@@ -138,13 +129,14 @@
             @endforeach
         </div>
 
-        <div class="col-6 col-md-3 col-sm-12">
+        <div class="col-6 col-md-4 col-sm-12">
             {{-- <div class="card"> --}}
-            <div class="card border-0 shadow-lg">
+            <div class="card sticky-top border-0 shadow-lg">
                 <div class="card-content">
-
-                    <div class="card-header">
-                        <p>Transaksi</p>
+                    <div class="card-header bg-primary text-light p-3">
+                        Transaksi
+                    </div>
+                    <div class="card-body mt-4">
                         <form action="{{ url('/invoice/store') }}" method="post">
                             @csrf
                             <div class="row">
@@ -158,6 +150,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-5">
+                                    <label>Jenis mobil</label>
+                                </div>
+                                <div class="col-7 form-group">
+                                    <input class="form-control form-control-sm" type="text" name="type_car" id="formFile"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
                                     <label>Nomor Plat</label>
                                 </div>
                                 <div class="col-7 form-group">
@@ -165,23 +166,68 @@
                                         id="formFile" required>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-5">
+                                    <label>Mekanik</label>
+                                </div>
+                                <div class="col-7 form-group">
+                                    <input class="form-control form-control-sm" type="text" name="mechanic"
+                                        id="formFile" required>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <label>Jasa</label>
+                                    </div>
+                                    <div class="col-7 form-group">
+                                        <input class="form-control form-control-sm" type="text" name="service"
+                                            id="formFile" placeholder="Optional">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <label>Steam Mobil</label>
+                                    </div>
+                                    <div class="col-7 form-group">
+                                        <input class="form-control form-control-sm" type="text" name="steam"
+                                            id="formFile" placeholder="Optional">
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="row">
+                                <div class="col-5">
+                                    <label>Nomor Plat</label>
+                                </div>
+                                <div class="col-7 form-group">
+                                    <input class="form-control form-control-sm" type="text" name="no_plat"
+                                        id="formFile" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
+                                    <label>Nomor Plat</label>
+                                </div>
+                                <div class="col-7 form-group">
+                                    <input class="form-control form-control-sm" type="text" name="no_plat"
+                                        id="formFile" required>
+                                </div>
+                            </div> --}}
                     </div>
+                </div>
+                <div class="card-footer">
                     @foreach ($transactions as $transaction)
                         {{-- @dd($transaction->sub_total) --}}
-                        <div class="card-body">
-                            <div class="row ">
-                                <div class="col-8">
-                                    <p class="card-text"> {{ $transaction->product->name }} </p>
-                                </div>
-                                <div class="col-4">
-                                    <p class="card-text">{{ $transaction->sub_total }}</p>
-                                </div>
+                        <div class="row ">
+                            <div class="col-8">
+                                <p class="card-text"> {{ $transaction->product->name }} </p>
+                            </div>
+                            <div class="col-4">
+                                <p class="card-text">{{ $transaction->sub_total }}</p>
                             </div>
                         </div>
                     @endforeach
-                </div>
-                <div class="card-footer">
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col-8">
                             Total Harga
                         </div>

@@ -47,7 +47,12 @@ Route::group(['prefix' => 'transaction'], function () {
 
 Route::group(['prefix' => 'report'], function () {
     Route::get('/', [SaleController::class, 'index'])->name('report.index');
-    Route::get('/detail/{id}', [SaleController::class, 'show'])->name('detail.index');
+    Route::get('/invoice/pdf/{id}', [SaleController::class, 'stream_pdf'])->name('invoice.pdf');
+    Route::get('/detail/{id}', [SaleController::class, 'show'])->name('report.show');
+});
+
+Route::group(['prefix' => 'export'], function() {
+    Route::get('/sales', [SaleController::class, 'export']);
 });
 
 Route::group(['prefix' => 'invoice'], function () {

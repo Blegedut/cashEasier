@@ -135,8 +135,6 @@
     </div>
     <script src="/assets/js/bootstrap.js"></script>
     <script src="/assets/js/app.js"></script>
-    /
-    <!-- Need: Ap/excharts -->
     <script src="/assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script src="/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="/assets/js/pages/form-element-select.js"></script>

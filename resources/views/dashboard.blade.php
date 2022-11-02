@@ -83,10 +83,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profile Visit</h4>
+                                <h4>Data Penjualan</h4>
                             </div>
-                            <div class="card-body">
-                                <div id="chart-profile-visit"></div>
+                            <div class="card-body h-50 w-100" id="chart">
+                                {{-- <div id="chart"></div> --}}
                             </div>
                         </div>
                     </div>
@@ -270,4 +270,30 @@
             </div>
         </section>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+            series: [{
+                name: 'sales',
+                data: [
+                    @foreach ($data_sale as $data)
+                        {{ $data }},
+                    @endforeach
+                ]
+            }],
+            xaxis: {
+                categories: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September',
+                    'Oktober', 'November', 'Desember'
+                ]
+            }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+        chart.render();
+    </script>
 @endsection

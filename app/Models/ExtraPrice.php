@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+class ExtraPrice extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'plat_number',
-        'type_car'
+        'service',
+        'steam'
     ];
 
-    public function invoice()
+    public function product()
     {
-        return $this->hasMany(Invoice::class);
+        return $this->hasOne(Invoice::class);
     }
 }

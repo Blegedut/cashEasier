@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\ExtraPrice;
 use App\Models\Invoice;
 use App\Models\Transaction;
 use App\Models\Product;
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,11 +51,19 @@ class InvoiceController extends Controller
     {
         $customer = Customer::create([
             'name' => $request->name,
-            'plat_number' => $request->no_plat
+            'plat_number' => $request->no_plat,
+            'type_car' => $request->type_car
+        ]);
+
+        $extra = ExtraPrice::create([
+            'service' => $request->service,
+            'steam' => $request->steam
         ]);
 
         $invoice = Invoice::create([
             'customer_id' => $customer->id,
+            'extra_price_id' => $extra->id,
+            'mechanic' => $request->mechanic,
             'total' => $request->total
         ]);
 

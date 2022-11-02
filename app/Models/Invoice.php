@@ -11,6 +11,8 @@ class Invoice extends Model
 
     protected $fillable = [
         'customer_id',
+        'extra_price_id',
+        'mechanic',
         'total'
     ];
 
@@ -27,5 +29,10 @@ class Invoice extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function extra()
+    {
+        return $this->belongsTo(ExtraPrice::class);
     }
 }
