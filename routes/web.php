@@ -22,16 +22,20 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/cashier');
 });
 
-Route::group(['prefix' => 'product'], function () {
-    Route::get('/', [ProductController::class, 'index'])->name('product.index');
-    Route::get('/search', [ProductController::class, 'search'])->name('product.search');
-    Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');
-    Route::post('/store', [ProductController::class, 'store'])->name('product.store');
-    Route::put('/update/{id}', [ProductController::class, 'update'])->name('product.update');
-    Route::delete('/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+Route::group(['middleware' => ['role:manager']], function () {
+
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::get('/search', [ProductController::class, 'search'])->name('product.search');
+        Route::get('/show/{id}', [ProductController::class, 'show'])->name('product.show');
+        Route::post('/store', [ProductController::class, 'store'])->name('product.store');
+        Route::put('/update/{id}', [ProductController::class, 'update'])->name('product.update');
+        Route::delete('/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+    });
+
 });
 
 Route::group(['prefix' => 'cashier'], function () {
@@ -51,7 +55,7 @@ Route::group(['prefix' => 'report'], function () {
     Route::get('/detail/{id}', [SaleController::class, 'show'])->name('report.show');
 });
 
-Route::group(['prefix' => 'export'], function() {
+Route::group(['prefix' => 'export'], function () {
     Route::get('/sales', [SaleController::class, 'export']);
 });
 
@@ -63,6 +67,7 @@ Route::group(['prefix' => 'invoice'], function () {
 Route::group(['prefix' => 'customer'], function () {
     Route::post('/store', [CustomerController::class, 'store'])->name('customer.index');
 });
-Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Auth::routes();
+// Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/cashier', [CashierController::class, 'index'])->name('cashier.index');

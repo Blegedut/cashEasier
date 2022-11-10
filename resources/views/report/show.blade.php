@@ -6,45 +6,44 @@
                 <div class="row">
                     <div class="col-7">
                         {{-- @dd($invoice); --}}
-                        <h4>{{ $sale->invoice->customer->name }}</h4>
-                        <div class="row mb-0">
-                            <div class="col-2">
-                                <p>Jenis Mobil</p>
-                            </div>
-                            <div class="col-5">
-                                <p>: {{ $sale->invoice->customer->type_car }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <p>Plat Nomor</p>
-                            </div>
-                            <div class="col-10">
-                                <p>: {{ $sale->invoice->customer->plat_number }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <p>Mekanik</p>
-                            </div>
-                            <div class="col-10">
-                                <p>: {{ $sale->invoice->mechanic }}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <p>Tanggal</p>
-                            </div>
-                            <div class="col-10">
-                                <p>: {{ $sale->invoice->customer->created_at }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-5">
-                        <img src="" alt="logo bengkel">
                         <h3>PRIMA MANDIRI SERVICE</h3>
                         <P class="mb-0">Jl. Lebak Bulus Raya No. 134 Cilandak - Jakarta Selatan</P>
                         <P>Phone : (021) 7668272, 0878.7558.2282</P>
+                    </div>
+                    <div class="col-5">
+                        <h4>{{ $sale->invoice->customer->name }}</h4>
+                        <div class="row mb-0">
+                            <div class="col-2">
+                                <p class="mb-0">Jenis Mobil</p>
+                            </div>
+                            <div class="col-5">
+                                <p class="mb-0">: {{ $sale->invoice->customer->type_car }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <p class="mb-0">Plat Nomor</p>
+                            </div>
+                            <div class="col-10">
+                                <p class="mb-0">: {{ $sale->invoice->customer->plat_number }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <p class="mb-0">Mekanik</p>
+                            </div>
+                            <div class="col-10">
+                                <p class="mb-0">: {{ $sale->invoice->mechanic }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <p class="mb-0">Tanggal</p>
+                            </div>
+                            <div class="col-10">
+                                <p class="mb-0">: {{ $sale->invoice->customer->created_at }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,7 +118,7 @@
             {{-- @dd($sales) --}}
             @foreach ($sales as $sale)
                 <div class="d-flex justify-content-end">
-                    <a href={{ url('/report/invoice/pdf/' . $sale->id) }} class="btn btn-danger rounded-pill">Print PDF</a>
+                    <a href={{ url('/report/invoice/pdf/' . $sale->id) }} class="btn btn-danger rounded-pill"><i class="bi bi-file-earmark-pdf"></i><span> Print PDF </span></a>
                 </div>
             @endforeach
         </div>

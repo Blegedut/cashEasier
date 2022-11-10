@@ -6,13 +6,14 @@ use App\Models\Categorie;
 use App\Models\Product;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        return $this->middleware(['auth']);
     }
     /**
      * Display a listing of the resource.
@@ -210,7 +211,6 @@ class ProductController extends Controller
             'unit' => 'required',
             'stock' => 'required',
             'price' => 'required',
-            'image' => 'required|file|max:3072',
         ]);
 
         $product = new Product();

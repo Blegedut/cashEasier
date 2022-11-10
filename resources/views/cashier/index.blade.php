@@ -9,24 +9,20 @@
             <div class="row mb-3">
                 <div class="col-6 col-lg-8 col-md-6">
                     <a href='{{ url('/cashier/checkout') }}' class="btn btn-primary">
-                        Cart
+                        <i class="bi bi-cart-check mx-1"></i>
+                        <span>
+                            Keranjang
+                        </span>
                         {{-- @foreach ($product_carts as $pc) --}}
                         <span class="badge bg-transparent">{{ $total_product_carts }}</span>
                         {{-- @endforeach --}}
                     </a>
                 </div>
-                <div class="col-6 col-lg-4 col-md-6 d-flex justify-content-end">
-                    <form class="d-flex" action="#">
-                        <input class="form-control me-2" id="search" name="search" placeholder="Search"
+                <div class="col-6 col-lg-4 col-md-6">
+                    <form class="d-flex" style="align-items: flex-end" role="search">
+                        <input class="form-control me-2" id="search" name="search" type="search" placeholder="Search"
                             aria-label="Search">
-                        {{-- <button class="btn btn-success" type="submit">Search</button> --}}
-
-                        @foreach ($products as $product)
-                                <a class="btn btn-success collapsed" href="#" data-bs-toggle="modal"
-                                    data-bs-target="#kasirDescModal{{ $product->id }}">
-                                    Cari
-                                </a>
-                        @endforeach
+                        {{-- <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button> --}}
                     </form>
                 </div>
             </div>
@@ -40,12 +36,12 @@
                                 <img src={{ asset('storage/image/foto_product/' . $product->image) }} style="height:15rem"
                                     class="card-img-top img-fluid" alt="{{ $product->image }}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                    <h5 class="card-title">{{ Str::limit($product->name, 16) }}</h5>
                                     <h6 class="card text font-semibold mt-3 mb-1">
                                         Stock : {{ $product->stock }} {{ $product->unit->unit }}
                                     </h6>
                                     <h6 class="card text font-semibold mb-2">
-                                        Price : Rp. {{ $product->price }}/{{ $product->unit->unit }}
+                                        Price : Rp{{ $product->price }}/{{ $product->unit->unit }}
                                     </h6>
                                     <p class="card text mt-3 mb-1">
                                         <a class="collapsed" href="#" data-bs-toggle="modal"
@@ -66,14 +62,19 @@
                                                         <img src={{ asset('storage/image/foto_product/' . $product->image) }}
                                                             width="290px;" alt="">
                                                     </div>
-                                                    <h4 class="mt-3">
-                                                        {{ $product->name }}
-                                                    </h4>
-                                                    <h6 class="font-semibold mt-4 mb-1">
-                                                        Price :
+                                                    <div class="row mt-5">
+                                                        <h4 class="col-7">
+                                                            {{ $product->name }}
+                                                        </h4>
+                                                        <h5 class="col-5 d-flex justify-content-end">
+                                                            Rp{{ $product->price }}/{{ $product->unit->unit }}
+                                                        </h5>
+                                                    </div>
+                                                    <h6 class="font-bold mt-4 mb-1">
+                                                        Stock
                                                     </h6>
                                                     <h6 class="font-semibold mb-4">
-                                                        Rp. {{ $product->price }}/{{$product->unit->unit}}
+                                                        {{ $product->stock }} {{ $product->unit->unit }}
                                                     </h6>
                                                     <h6 class="font-semibold mt-4 mb-1">
                                                         Deskripsi :
@@ -89,7 +90,7 @@
                                                                 <div class="col-md-6 col-sm-21">
                                                                     <h6 class="mb-1">Jumlah :</h6>
                                                                     <input type="number" class="form-control"
-                                                                        name="quantity">
+                                                                        name="quantity" required>
                                                                 </div>
                                                                 <div class="col-md-6 col-sm-21">
                                                                     <h6 class="mb-1">Unit :</h6>
@@ -108,7 +109,8 @@
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                                    <button id="inputProduct2Cart" type="submit"
+                                                        class="btn btn-primary me-1 mb-1" onclick="return submitTransaction();">Submit</button>
                                                 </div>
                                                 </form>
                                             </div>

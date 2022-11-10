@@ -156,6 +156,6 @@ class SaleController extends Controller
         }
  
 	$pdf = PDF::loadview('report.invoice_pdf',['sales'=>$sales, 'total'=>$total])->setPaper('a4', 'landscape');
-	return $pdf->stream('faktur-pdf');
+	return $pdf->stream();
 }
 }

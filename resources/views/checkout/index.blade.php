@@ -19,11 +19,11 @@
                                 <img src={{ asset('storage/image/foto_product/' . $transaction->product->image) }}
                                     width="290px;" alt="">
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <h4 class="mt-5">
+                            <div class="row mt-5">
+                                <h4 class="col-7">
                                     {{ $transaction->product->name }}
                                 </h4>
-                                <h5 class="mt-5">
+                                <h5 class="col-5 d-flex justify-content-end">
                                     Rp{{ $transaction->product->price }}/{{ $transaction->unit->unit }}
                                 </h5>
                             </div>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                            <button type="submit" class="btn btn-primary me-1 mb-1" onclick="return editTransaction();">Submit</button>
                         </div>
                         </form>
                     </div>
@@ -86,8 +86,8 @@
                             <form action={{ url('/transaction/delete/' . $transaction->id) }} method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-primary" onclick="return deleteTransaction();">Iya, Hapus</button>
                             </form>
                         </div>
                     </div>
@@ -118,10 +118,11 @@
                             <div class="d-flex align-items-stretch">
                                 <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal"
                                     data-bs-target="#checkoutEdit{{ $transaction->id }}">
-                                    Edit
+                                    <i class="bi bi-pencil"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#modalDelete{{ $transaction->id }}">Delete</button>
+                                    data-bs-target="#modalDelete{{ $transaction->id }}"><i
+                                        class="bi bi-trash"></i></button>
                             </div>
                         </div>
                     </div>
@@ -144,8 +145,8 @@
                                     <label>Customer name</label>
                                 </div>
                                 <div class="col-7 form-group">
-                                    <input class="form-control form-control-sm" type="text" name="name" id="formFile"
-                                        required>
+                                    <input class="form-control form-control-sm" type="text" name="name"
+                                        id="formFile" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -153,8 +154,8 @@
                                     <label>Jenis mobil</label>
                                 </div>
                                 <div class="col-7 form-group">
-                                    <input class="form-control form-control-sm" type="text" name="type_car" id="formFile"
-                                        required>
+                                    <input class="form-control form-control-sm" type="text" name="type_car"
+                                        id="formFile" required>
                                 </div>
                             </div>
                             <div class="row">

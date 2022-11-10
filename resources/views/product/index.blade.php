@@ -71,9 +71,9 @@
                                     <textarea class="form-control" name="description" placeholder="Desc" rows="3" required></textarea>
                                 </div>
                                 <div class="col-sm-12 mt-4 d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                    <button type="submit" class="btn btn-primary me-1 mb-1" onclick="return submitProduct();">Submit</button>
                                     <button type="button" class="btn btn-secondary  me-1 mb-1"
-                                        data-bs-dismiss="modal">Close</button>
+                                        data-bs-dismiss="modal">Tutup</button>
                                 </div>
                             </div>
                         </div>
@@ -102,8 +102,8 @@
                         <form action={{ url('/product/delete/' . $product->id) }} method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary" onclick="return deleteProduct();">Iya, Hapus</button>
                         </form>
                     </div>
                 </div>
@@ -120,14 +120,13 @@
             <div class="row mb-3">
                 <div class="col-6 col-lg-8 col-md-6">
                     <button type="button" class="btn btn-primary shadow" data-bs-toggle="modal"
-                        data-bs-target="#modalAdd">+
-                        Add Item</button>
+                        data-bs-target="#modalAdd"><i class="bi bi-plus"></i><span> Tambah Produk </span></button>
                 </div>
                 <div class="col-6 col-lg-4 col-md-6">
                     <form class="d-flex" style="align-items: flex-end" role="search">
                         <input class="form-control me-2" id="search" name="search" type="search"
                             placeholder="Search" aria-label="Search">
-                        <button class="btn btn-success" type="submit">Search</button>
+                        {{-- <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button> --}}
                     </form>
                 </div>
             </div>
@@ -141,7 +140,7 @@
                                 <img src={{ asset('storage/image/foto_product/' . $product->image) }} style="height:15rem"
                                     class="card-img-top img-fluid" alt="{{ $product->image }}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                    <h5 class="card-title">{{Str::limit( $product->name, 16)}}</h5>
                                     <h6 class="card text font-semibold mt-3 mb-1">
                                         Stock : {{ $product->stock }} {{ $product->unit->unit }}
                                     </h6>
@@ -167,11 +166,11 @@
                                                         <img src={{ asset('storage/image/foto_product/' . $product->image) }}
                                                             width="290px;" height="290px" alt="">
                                                     </div>
-                                                    <div class="d-flex justify-content-between">
-                                                        <h4 class="mt-5">
+                                                    <div class="row mt-5">
+                                                        <h4 class="col-7">
                                                             {{ $product->name }}
                                                         </h4>
-                                                        <h5 class="mt-5">
+                                                        <h5 class="col-5 d-flex justify-content-end">
                                                             Rp{{ $product->price }}/{{ $product->unit->unit }}
                                                         </h5>
                                                     </div>

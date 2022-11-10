@@ -77,11 +77,6 @@ class InvoiceController extends Controller
                 'invoice_id' => $invoice->id
             ]);
             // dd($transaction);
-
-            $product = Product::where('id', $transaction->product_id)->first();
-            $product->update([
-                'stock' => $product->stock - $transaction->quantity
-            ]);
         }
 
         // $product = 

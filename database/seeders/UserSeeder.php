@@ -1,11 +1,13 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\User;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Contracts\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -16,16 +18,22 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'kasir 1',
+        Role::create(['name' => 'manager']);
+
+        Role::create(['name' => 'cashier']);
+
+        $manager = User::create([
+            'name' => 'Admin',
             'email' => 'primamandiriservice@mail.com',
             'password' => Hash::make('password')
         ]);
+        $manager->assignRole('manager');
 
-        User::create([
-            'name' => 'kasir 2',
+        $cashier = User::create([
+            'name' => 'kasir',
             'email' => 'primamandiri@mail.com',
             'password' => Hash::make('password')
         ]);
+        $cashier->assignRole('cashier');
     }
 }

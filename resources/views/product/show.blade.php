@@ -90,8 +90,8 @@
                                             </div>
                                             <div class="col-sm-12 mt-4 d-flex justify-content-end">
                                                 <a href='{{ url('/product') }}'
-                                                    class="btn btn-secondary me-1 mb-1">Back</a>
-                                                <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                                    class="btn btn-secondary me-1 mb-1">Kembali</a>
+                                                <button type="submit" class="btn btn-primary me-1 mb-1" onclick="return editProduct();">Submit</button>
                                             </div>
                                         </div>
                                     </div>

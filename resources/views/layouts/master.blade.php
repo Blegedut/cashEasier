@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Mazer Admin Dashboard</title>
 
-    <link rel="stylesheet" href="/assets/css/main/app.css">
-    <link rel="stylesheet" href="/assets/css/main/app-dark.css">
-    <link rel="shortcut icon" href="/assets/images/logo/favicon.svg" type="image/x-icon">
-    <link rel="shortcut icon" href="/assets/images/logo/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/assets/extensions/choices.js/public/assets/styles/choices.css">
-    <link rel="stylesheet" href="/assets/css/pages/simple-datatables.css">
-    <link rel="stylesheet" href="/assets/extensions/simple-datatables/style.css">
+    <link rel="stylesheet" href={{ asset('assets/css/main/app.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/main/app-dark.css') }}>
+    <link rel="shortcut icon" href={{ asset('assets/images/logo/favicon.svg') }} type="image/x-icon">
+    <link rel="shortcut icon" href={{ asset('assets/images/logo/favicon.png') }} type="image/png">
+    <link rel="stylesheet" href={{ asset('assets/extensions/choices.js/public/assets/styles/choices.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/css/pages/simple-datatables.css') }}>
+    <link rel="stylesheet" href={{ asset('assets/extensions/simple-datatables/style.css') }}>
+    <link rel="stylesheet" href="sweetalert2.min.css">
 
-    <link rel="stylesheet" href="/assets/css/shared/iconly.css">
+    <link rel="stylesheet" href={{ asset('assets/css/shared/iconly.css') }}>
 
 </head>
 
@@ -25,8 +26,8 @@
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="assets/images/logo/logo.svg" alt="Logo"
-                                    srcset=""></a>
+                            <a href="index.html"><img src={{ asset('assets/images/logo/logo.png') }} class="mt-0"
+                                    style="width: 150%; height:50px;" alt="Logo" srcset=""></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -65,40 +66,43 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Dashboard</li>
+                        {{-- <li class="sidebar-title">Dashboard</li>
 
                         <li class="sidebar-item ">
                             <a href={{ url('/') }} class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item ">
                             <a href={{ url('/cashier') }} class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-cash-coin"></i>
                                 <span>Kasir</span>
                             </a>
                         </li>
+                        @hasrole('manager')
                         <li class="sidebar-item ">
                             <a href={{ url('/product') }} class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-wrench"></i>
                                 <span>Produk</span>
                             </a>
                         </li>
+                        @endhasrole
                         <li class="sidebar-item ">
                             <a href={{ url('/report') }} class='sidebar-link'>
-                                <i class="bi bi-grid-fill"></i>
+                                <i class="bi bi-file-earmark-bar-graph"></i>
                                 <span>Laporan</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a class="sidebar-link" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                <i class="bi bi-door-open"></i>
+                                <span>{{ __('Logout') }}</span>
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -133,16 +137,64 @@
             </footer>
         </div>
     </div>
-    <script src="/assets/js/bootstrap.js"></script>
-    <script src="/assets/js/app.js"></script>
-    <script src="/assets/extensions/apexcharts/apexcharts.min.js"></script>
-    <script src="/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
-    <script src="/assets/js/pages/form-element-select.js"></script>
-    <script src="/assets/js/pages/dashboard.js"></script>
-    <script src="/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
-    <script src="/assets/js/pages/simple-datatables.js"></script>
+    <script src={{ asset('assets/js/bootstrap.js') }}></script>
+    <script src={{ asset('assets/js/app.js') }}></script>
+    <script src={{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}></script>
+    <script src={{ asset('assets/extensions/choices.js/public/assets/scripts/choices.js') }}></script>
+    <script src={{ asset('assets/js/pages/form-element-select.js') }}></script>
+    <script src={{ asset('assets/js/pages/dashboard.js') }}></script>
+    <script src={{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}></script>
+    <script src={{ asset('assets/js/pages/simple-datatables.js') }}></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+
+    <script>
+        function submitTransaction() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: 'Berhasil menambahkan produk ke keranjang',
+            })
+        }
+        function editTransaction() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: 'Berhasil mengganti quantity produk',
+            })
+        }
+        function deleteTransaction() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: 'Berhasil menghapus produk dari keranjang',
+            })
+        }
+
+        function submitProduct() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses',
+                text: 'Berhasil menambah produk baru',
+            })
+        }
+        function editProduct() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukes',
+                text: 'Berhasil mengedit data produk',
+            })
+        }
+        function deleteProduct() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Suskses',
+                text: 'Berhasil menghapus produk',
+            })
+        }
+    </script>
 
 </body>
 
